@@ -3,7 +3,9 @@ import React, { useState, useEffect, useContext } from "react";
 import firebase from "./firebase";
 import { AuthContext } from "./context";
 
+//import components
 import Login2 from "./components/Login2";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   //fetching user state from context
@@ -105,7 +107,7 @@ function App() {
     <div className="App">
       {user ? (
         <>
-          <p>user panel</p>
+          <Dashboard />
           <button onClick={handleLogout}>log out</button>
           <button onClick={logUser}>console log user</button>
         </>

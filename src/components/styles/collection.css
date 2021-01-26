@@ -1,0 +1,17 @@
+.collection__entryHeader {
+  display: flex;
+  width: 80vw;
+  margin: 20px;
+  justify-content: space-around;
+}
+
+/* .collection__entries {
+  display: flex;
+  flex-direction: row;
+} */
+
+.collection__titles {
+  display: grid;
+  width: 80vw;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
