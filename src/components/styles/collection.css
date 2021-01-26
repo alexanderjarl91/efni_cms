@@ -13,5 +13,11 @@
 .collection__titles {
   display: grid;
   width: 80vw;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
+
+/* .collection__entries {
+  display: grid;
+  width: 80vw;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+} */

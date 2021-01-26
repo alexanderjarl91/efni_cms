@@ -1,7 +1,30 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import './styles/collection.css'
 
 export default function Collection() {
+
+    const [products, setProducts] = useState([])
+    
+    useEffect( () => {
+        const getData = async () => {
+            try {
+                const response = await fetch("https://efni-api.herokuapp.com/products"); 
+                const data = await response.json();
+                setProducts(data)
+                console.log(products)
+
+              } catch(err) {
+                console.log(err);
+              }
+        }
+        getData()
+        
+    }, [])
+
+    // const productList = products.map((product)=>{
+    //     <p>{product.productName}</p>
+    // })
+
     return (
         <>
         <div>
@@ -19,11 +42,19 @@ export default function Collection() {
                     <h4>product image</h4>
                     <h4>on sale?</h4>
                     <h4>description</h4>
-                    <p>Metcon 6</p>
-                <p> 20000</p>
-                <p>http://image.png</p>
-                <p>true</p>
-                <p>cool shoes</p>                  
+                    <h4></h4>
+
+
+                    {products.map((product) => 
+                    <>
+                        <p>{product.productName}</p>
+                        <p>{product.productPrice}</p>
+                        <p>{product.productImg}</p>
+                        <p>{product.productOnSale? "true" : "false"}</p>
+                        <p>{product.productDescription}</p>
+                        <button>edit</button>
+                    </>
+                )}                
                 </div>
             </div>
         </div>
