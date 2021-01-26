@@ -47,6 +47,7 @@ export default function Collection() {
 
                     {products.map((product) => 
                     <>
+                        
                         <p>{product.productName}</p>
                         <p>{product.productPrice}</p>
                         <p>{product.productImg}</p>

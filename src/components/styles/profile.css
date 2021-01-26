@@ -1,0 +1,7 @@
+.profile__container {
+  display: flex;
+  align-items: center;
+}
+.profile__avatar {
+  width: 20%;
+}

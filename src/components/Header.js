@@ -1,15 +1,22 @@
-import React from 'react'
-import "./styles/header.css"
+import React, { useContext } from "react";
+import { AuthContext } from "../context";
+import firebase from "../firebase";
+import "./styles/header.css";
 
 export default function Header() {
-    return (
-        <div className="header">
-            <div className="header__userInfo">
-                <img className="header__avatar" src="https://lh3.googleusercontent.com/proxy/6FebvxrOccNZDEmIfJPttIcZAPRUzXSIEFbOMc9x_JPbL3diqeUJtj_EDSTZHInGgsYhgJpd8ldiSoohR6SROcJveJbnqqp7rMViDgToFR6IKTvRxzzQ5lmhlsaerSMlQo7U"/>
-                <p>Name</p>
-                <p>admin</p>
-            </div>
-            <button>log out</button>
-        </div>
-    )
+  const { user } = useContext(AuthContext);
+
+  const logOut = () => {
+    firebase.auth().signOut();
+  };
+  return (
+    <div className="header">
+      <div className="header__userInfo">
+        <img className="header__avatar" src={user.photoURL} />
+        <p>{user.displayName}</p>
+        <p style={{ opacity: "0.5" }}>, admin</p>
+      </div>
+      <button onClick={logOut}>log out</button>
+    </div>
+  );
 }

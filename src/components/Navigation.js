@@ -1,20 +1,30 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
-//importing components
-import DashboardPanel from "./DashboardPanel";
-import Users from "./Users";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { DataContext, DataProvider } from "../context";
 
 export default function Navigation({ goToCollection }) {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const { product } = useContext(DataContext);
+
+  const toggleAdminView = () => {
+    setIsAdmin(!isAdmin);
+    console.log(product);
+  };
+
   return (
     <>
       <div
         className="navbar"
-        style={{ height: "100vh", width: "20vw", backgroundColor: "#263774" }}
+        style={{
+          height: "100vh",
+          width: "20vw",
+          backgroundColor: "#263774",
+          minWidth: "200px",
+        }}
       >
         <nav>
-          <p>Dashboard</p>
-          <p>LOGO</p>
+          <p>logo</p>
           <div className="userNav">
             <h1>user nav</h1>
             <Link to="/">
@@ -23,19 +33,24 @@ export default function Navigation({ goToCollection }) {
             <Link to="/collection">
               <p>Collection</p>
             </Link>
-            <Link to="/myprofile">
-              <p>My profile</p>
+            <Link to="/profile">
+              <p>Profile</p>
             </Link>
           </div>
-          <div className="adminNav">
-            <h1 className="adminNav">Admin nav</h1>
-            <Link to="/users">
-              <p>Users</p>
-            </Link>
-            <Link to="/api-generator">
-              <p>API generator</p>
-            </Link>
-          </div>
+          {isAdmin ? (
+            <div className="adminNav">
+              <h1 className="adminNav">Admin nav</h1>
+              <Link to="/users">
+                <p>Users</p>
+              </Link>
+              <Link to="/api-generator">
+                <p>API generator</p>
+              </Link>
+            </div>
+          ) : (
+            <div></div>
+          )}
+          <button onClick={toggleAdminView}>Toggle admin view</button>
         </nav>
       </div>
     </>

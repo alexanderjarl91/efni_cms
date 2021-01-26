@@ -17,3 +17,11 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
   );
 };
+
+export const DataContext = React.createContext();
+export const DataProvider = ({ children }) => {
+  const product = { name: "whatever" };
+  return (
+    <DataContext.Provider value={{ product }}>{children}</DataContext.Provider>
+  );
+};
