@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { DataContext, DataProvider } from "../context";
+import { DataContext } from "../context";
 
 export default function Navigation({ goToCollection }) {
   const [isAdmin, setIsAdmin] = useState(false);

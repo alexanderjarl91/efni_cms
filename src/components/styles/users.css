@@ -1,0 +1,32 @@
+.users__comp {
+  border: 1px solid black;
+  max-width: 70vw;
+  margin: 0 auto;
+  padding: 50px;
+}
+
+.users__title {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.users__titles {
+  margin: 0 auto;
+  display: grid;
+  width: 60vw;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  font-size: 12px;
+}
+
+.user__data {
+  display: grid;
+  width: 60vw;
+  margin: 0 auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  font-size: 12px;
+  margin-top: 1rem;
+}
+
+.user__data:hover {
+  background-color: lightgray;
+}

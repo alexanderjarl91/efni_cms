@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import firebase from "./firebase";
 import { AuthContext } from "./context";
 
@@ -18,11 +18,6 @@ function App() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [hasAccount, setHasAccount] = useState(false);
-
-  const clearInput = () => {
-    setEmail("");
-    setPassword("");
-  };
 
   const clearErrors = () => {
     setEmailError("");
