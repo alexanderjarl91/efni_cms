@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import './styles/collection.css'
+import NewEntry from "./NewEntry";
 
 export default function Collection() {
-
+    const [addMode, setAddMode ] = useState(false)
     const [products, setProducts] = useState([])
     
     useEffect( () => {
@@ -21,6 +22,10 @@ export default function Collection() {
         
     }, [])
 
+    const toggleAddMode = () => {
+        setAddMode(!addMode)
+    }
+
     // const productList = products.map((product)=>{
     //     <p>{product.productName}</p>
     // })
@@ -32,7 +37,7 @@ export default function Collection() {
 
             <div className="collection__entryHeader">
                 <h4>entries:</h4>
-                <button>add new entry</button>
+                <button onClick={toggleAddMode}>add new entry</button>
             </div>
 
             <div>
@@ -59,6 +64,11 @@ export default function Collection() {
                 </div>
             </div>
         </div>
+        {addMode ? 
+            <NewEntry setProducts={setProducts} toggleAddMode={toggleAddMode}/>
+            : null
+        }
+       
     </>
     )
 }
