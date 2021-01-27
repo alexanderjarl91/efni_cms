@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import firebase from "./firebase";
+import { db } from "./firebase";
 
 export const AuthContext = React.createContext();
 
@@ -19,9 +20,26 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const DataContext = React.createContext();
+
 export const DataProvider = ({ children }) => {
-  const product = { name: "whatever" };
+  const [userData, setUserData] = useState([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const response = db.collection("users");
+      const data = await response.get();
+      const userArray = [];
+      data.docs.forEach((item) => {
+        userArray.push(item.data());
+      });
+
+      setUserData(userArray);
+    };
+
+    getUsers();
+  }, []);
+
   return (
-    <DataContext.Provider value={{ product }}>{children}</DataContext.Provider>
+    <DataContext.Provider value={{ userData }}>{children}</DataContext.Provider>
   );
 };

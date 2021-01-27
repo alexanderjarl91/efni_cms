@@ -24,9 +24,21 @@
   margin: 0 auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   font-size: 12px;
-  margin-top: 1rem;
+  padding: 1rem;
 }
 
 .user__data:hover {
   background-color: lightgray;
+  cursor: pointer;
+}
+
+p {
+  text-transform: capitalize;
+}
+
+.users__editMode {
+  background-color: lightblue;
+  height: 15vh;
+  width: 60vw;
+  padding: 20px;
 }

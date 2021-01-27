@@ -1,36 +1,27 @@
-import React, {useState, useEffect} from "react";
-import './styles/users.css'
+import React, { useState, useEffect, useContext } from "react";
+import "./styles/users.css";
 
-import {db} from '../firebase'
+import { db } from "../firebase";
 
+import { AuthContext, DataContext } from "../context";
 
 export default function Users() {
+  const { userData } = useContext(DataContext);
+  console.log(userData);
 
-const [users, setUsers] = useState([])
-const [editUser, setEditUser] = useState(false)
+  const [users, setUsers] = useState([]);
+  // const [editUser, setEditUser] = useState(false);
 
-const toggleEdit = () => {
-  setEditUser(!editUser)
-}
-
-
-
-console.log('user stateið:', users)
-useEffect(() => {
-
-  const getUsers = async () => {
-    const response = db.collection('users')
-    const data = await response.get();
-    const userArray = [];
-    data.docs.forEach((item) => {
-       userArray.push(item.data())
-    })
-    setUsers(userArray)
-  }
-  
-  getUsers()
-}, [])
-
+  const toggleEdit = (index) => {
+    const usersCopy = [...userData];
+    if (usersCopy[index].editUser !== true) {
+      usersCopy.forEach((user) => {
+        user.editUser = false;
+      });
+    }
+    usersCopy[index].editUser = !usersCopy[index].editUser;
+    setUsers(usersCopy);
+  };
 
   return (
     <div className="users__comp">
@@ -45,28 +36,53 @@ useEffect(() => {
       </div>
 
       {/* DISPLAY USER DATA */}
-        {users.length > 0 ?
-         <div class="" >
-           {users.map(user => (
-           <div onClick={toggleEdit} className="user__data" key={user.email}>
-            <p>{user.name}</p>
-            <p>{user.email}</p>
-            {user.role === 'admin'? <p>{user.role}</p> : <p>Editor</p>}
-            <p>my databases</p>
-          </div>
-          
-          
-          ))}
-         </div>
-         
-         : <p>loading users..</p>}
+      {userData.length > 0 ? (
+        <div class="">
+          {userData.map((user, index) => (
+            <div
+              onClick={(e) => {
+                toggleEdit(index);
+              }}
+              className="user__data"
+              key={user.email}
+            >
+              <p>{user.name}</p>
+              <p>{user.email}</p>
+              {user.role === "admin" ? <p>{user.role}</p> : <p>Editor</p>}
+              <p>my databases</p>
 
-        <div className="user__data">
-          <p>Alexander</p>
-          <p>alexanderjarl91@gmail.com</p>
-          <p>admin</p>
-          <p>products</p>
+              {/* EDITMODE */}
+              
+              {user.editUser ?
+              <div className="users__editMode">
+                <div>
+                    <h3>Name</h3> 
+                    <input type="text" placeholder={user.name}/>
+                    <button>Update</button>
+                </div>
+                <div>
+                    <h3>Email</h3> 
+                    <input type="email" placeholder={user.email}/>
+                    <button>Update</button>
+                </div>
+                <div>
+                    <h3>User role</h3> 
+                    <label htmlFor="">admin</label>
+                    <input type="radio" placeholder={user.role}/>
+                    <label htmlFor="">editor</label>
+                    <input type="radio" placeholder={user.role}/>
+                    <button>Update</button>
+                </div>
+               </div>
+              : null}
+
+            </div>
+
+          ))}
         </div>
+      ) : (
+        <p>loading users..</p>
+      )}
     </div>
   );
 }
