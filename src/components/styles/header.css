@@ -4,7 +4,7 @@
   justify-content: flex-end;
   align-items: right;
   margin: 1rem;
-  max-height: 50px;
+  max-height: 80px;
   background-color: lightblue;
 }
 .header__avatar {
