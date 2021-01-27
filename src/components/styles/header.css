@@ -15,7 +15,12 @@
 .header__userInfo {
   margin: 1rem;
   display: flex;
+  flex-direction: row;
   text-align: center;
   justify-content: center;
   align-items: center;
+}
+
+.header__userInfo:hover {
+  cursor: pointer;
 }

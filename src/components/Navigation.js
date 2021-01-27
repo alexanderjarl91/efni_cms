@@ -1,16 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { DataContext, DataProvider } from "../context";
+import { AuthContext, authContext, DataContext } from "../context";
 
 export default function Navigation({ goToCollection }) {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [currentUserRole, setCurrentUserRole] = useState("editor"); //current users role
 
-  const { product } = useContext(DataContext);
+  const { user } = useContext(AuthContext);
+  const { userData } = useContext(DataContext);
 
   const toggleAdminView = () => {
     setIsAdmin(!isAdmin);
-    console.log(product);
   };
+
+  useEffect(() => {
+    userData.forEach((currUser) => {
+      if (currUser.email == user.email) {
+        setCurrentUserRole(currUser.role);
+        console.log(currUser.role);
+      }
+    });
+  }, [userData]);
 
   return (
     <>
@@ -37,7 +47,8 @@ export default function Navigation({ goToCollection }) {
               <p>Profile</p>
             </Link>
           </div>
-          {isAdmin ? (
+
+          {currentUserRole == "admin" ? (
             <div className="adminNav">
               <h1 className="adminNav">Admin nav</h1>
               <Link to="/users">
@@ -50,7 +61,6 @@ export default function Navigation({ goToCollection }) {
           ) : (
             <div></div>
           )}
-          <button onClick={toggleAdminView}>Toggle admin view</button>
         </nav>
       </div>
     </>
