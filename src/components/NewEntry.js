@@ -13,7 +13,7 @@ export default function NewEntry ({toggleAddMode, setProducts}) {
 
     const addEntryToDb = () => {
         // Fetch from the api with POST method to add do database
-        fetch("http://efni-api.herokuapp.com/products", { // Skoða variables fyrir mismunandi endpoint á collections
+        fetch("http://efni-api.herokuapp.com/nike", { // Skoða variables fyrir mismunandi endpoint á collections
           method: 'POST', 
           body: JSON.stringify({
               productName: newEntry.productName,

@@ -25,6 +25,7 @@ export const DataContext = React.createContext();
 export const DataProvider = ({ children }) => {
   const [userData, setUserData] = useState([]);
   const [products, setProducts] = useState([]);
+  const [collections, setCollections] = useState([]);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -38,23 +39,35 @@ export const DataProvider = ({ children }) => {
       setUserData(userArray);
     };
 
+    const getData = async () => {
+      try {
+        const response = await fetch("https://efni-api.herokuapp.com/nike");
+        const data = await response.json();
+        setProducts(data);
+        console.log(products);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    
+    const getCollections = async () => {
+      try {
+        const response = await fetch("https://efni-api.herokuapp.com/collections");
+        const data = await response.json();
+        setCollections(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     getUsers();
+    getData();
+    getCollections();
   }, []);
 
-  const getData = async () => {
-    try {
-      const response = await fetch("https://efni-api.herokuapp.com/products");
-      const data = await response.json();
-      setProducts(data);
-      console.log(products);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  getData();
-
   return (
-    <DataContext.Provider value={{ userData, products, setProducts }}>
+    <DataContext.Provider value={{ userData, products, collections, setProducts, setCollections }}>
       {children}
     </DataContext.Provider>
   );

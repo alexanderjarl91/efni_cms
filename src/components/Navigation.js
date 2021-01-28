@@ -8,6 +8,8 @@ export default function Navigation({ goToCollection }) {
 
   const { user } = useContext(AuthContext);
   const { userData } = useContext(DataContext);
+  const { collections } = useContext(DataContext);
+  
 
   const toggleAdminView = () => {
     setIsAdmin(!isAdmin);
@@ -40,9 +42,7 @@ export default function Navigation({ goToCollection }) {
             <Link to="/">
               <p>Dashboard</p>
             </Link>
-            <Link to="/collection">
-              <p>Collection</p>
-            </Link>
+            {collections.map((collection) => (<div><Link to="/collection">{collection.collection}</Link></div>))}
             <Link to="/profile">
               <p>Profile</p>
             </Link>

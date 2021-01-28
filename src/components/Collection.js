@@ -14,7 +14,7 @@ export default function Collection() {
   // Handle when delete button is clicked
   const handleDelete = (id) => {
     // Fetch from the api with DELETE method to delete from database
-    fetch(`https://efni-api.herokuapp.com/products/${id}`, {
+    fetch(`https://efni-api.herokuapp.com/nike/${id}`, {
       method: "DELETE",
     })
       .then((r) => r.json())
@@ -50,7 +50,7 @@ export default function Collection() {
             <h4></h4>
 
             {products.map((product) => (
-              <>
+              <React.Fragment key={product._id}>
                 <p>{product.productName}</p>
                 <p>{product.productPrice}</p>
                 <a
@@ -65,7 +65,7 @@ export default function Collection() {
                 <button onClick={() => handleDelete(product._id)}>
                   Delete
                 </button>
-              </>
+              </React.Fragment>
             ))}
           </div>
         </div>
