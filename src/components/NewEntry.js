@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './styles/newEntry.css'
 
 export default function NewEntry ({toggleAddMode, setProducts}) {
 
@@ -46,12 +47,11 @@ export default function NewEntry ({toggleAddMode, setProducts}) {
 
     const handleCancel = (e) => {
         // Toggle back to collections
-
-        console.log("Canceled")
+        toggleAddMode()
     }
 
     return (
-    <div>
+    <div className="newEntry__formContainer">
         <form onSubmit={handleSubmit}>
             <label>
                 productName

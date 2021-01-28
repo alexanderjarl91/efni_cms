@@ -26,12 +26,28 @@ export default function Collection() {
         setAddMode(!addMode)
     }
 
+    // Handle when delete button is clicked
+    const handleDelete = (id) => {
+        // Fetch from the api with DELETE method to delete from database
+        fetch(`https://efni-api.herokuapp.com/products/${id}`, { 
+        method: 'DELETE'
+        })
+        .then((r) => r.json())
+        // Filtering and finding the name to remove from id
+        .then(() => setProducts(products.filter(product => id !== product._id)))
+        .catch((error) => console.error(error)) 
+    }
+
     // const productList = products.map((product)=>{
     //     <p>{product.productName}</p>
     // })
 
     return (
         <>
+         {addMode ? 
+            <NewEntry setProducts={setProducts} toggleAddMode={toggleAddMode}/>
+            : null
+        }
         <div>
             <h1>Collection Name</h1>
 
@@ -51,23 +67,19 @@ export default function Collection() {
 
 
                     {products.map((product) => 
-                    <>
+                    < >
                         
                         <p>{product.productName}</p>
                         <p>{product.productPrice}</p>
-                        <p>{product.productImg}</p>
+                        <a className="collection__imageLink" href={product.productImg} target="blank">Link to image</a>
                         <p>{product.productOnSale? "true" : "false"}</p>
                         <p>{product.productDescription}</p>
-                        <button>edit</button>
+                        <button onClick={() => handleDelete(product._id)}>Delete</button>
                     </>
                 )}                
                 </div>
             </div>
         </div>
-        {addMode ? 
-            <NewEntry setProducts={setProducts} toggleAddMode={toggleAddMode}/>
-            : null
-        }
        
     </>
   );

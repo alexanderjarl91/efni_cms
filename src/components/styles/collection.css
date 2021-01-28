@@ -21,3 +21,7 @@
   width: 80vw;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 } */
+
+.collection__imageLink {
+  color: black;
+}
