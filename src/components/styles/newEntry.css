@@ -1,0 +1,7 @@
+.newEntry__formContainer {
+    position: absolute;
+    background-color: lightgray;
+    margin: auto;
+    width: 60%;
+    padding: 24px;
+}
