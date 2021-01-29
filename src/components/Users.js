@@ -1,16 +1,37 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./styles/users.css";
-
-import { db } from "../firebase";
-
-import { AuthContext, DataContext } from "../context";
+import { DataContext } from "../context";
+import {db} from '../firebase'
 
 export default function Users() {
-  const { userData } = useContext(DataContext);
-  console.log(userData);
-
+  const { userData, collections } = useContext(DataContext);
   const [users, setUsers] = useState([]);
-  // const [editUser, setEditUser] = useState(false);
+  const [selectedDatabase, setSelectedDatabase] = useState([])
+
+
+  // check if checkbox is checked, set database state according to 
+  const handleCheck = (e) => {
+    if (e.target.checked) {
+      // return (cancel) if item is already in array
+      if (selectedDatabase.includes(e.target.value)) return;
+      
+      //add item if checked
+      setSelectedDatabase([...selectedDatabase, e.target.value])
+      console.log(selectedDatabase)
+    } else {
+
+      //remove item if unchecked
+      const copyOfSelectedDatabase = [...selectedDatabase]
+      const index = copyOfSelectedDatabase.indexOf(e.target.value)
+      copyOfSelectedDatabase.splice(index, 1)
+      setSelectedDatabase(copyOfSelectedDatabase)
+    }
+  }
+  //update user button
+  const updateUser = (email) => {
+    const userRef = db.collection('users').doc(email)
+     userRef.update({access: selectedDatabase})
+  }
 
   const toggleEdit = (index) => {
     const usersCopy = [...userData];
@@ -37,15 +58,17 @@ export default function Users() {
 
       {/* DISPLAY USER DATA */}
       {userData.length > 0 ? (
-        <div class="">
+        <div>
           {userData.map((user, index) => (
+            <div>
+
             <div
               onClick={(e) => {
                 toggleEdit(index);
               }}
               className="user__data"
               key={user.email}
-            >
+              >
               <p>{user.name}</p>
               <p>{user.email}</p>
               {user.role === "admin" ? <p>{user.role}</p> : <p>Editor</p>}
@@ -53,39 +76,51 @@ export default function Users() {
 
               {/* EDITMODE */}
 
+          </div>
               {user.editUser ? (
+                <>
                 <div className="users__editMode">
                   <div>
                     <h3>Name</h3>
                     <input type="text" placeholder={user.name} />
-                    <button>Update</button>
 
                     <h3>Email</h3>
                     <input type="email" placeholder={user.email} />
-                    <button>Update</button>
+
                   </div>
                   <div>
                     <h3>User role</h3>
                     <label htmlFor="">admin</label>
-                    <input type="radio" placeholder={user.role} />
+                    <input name=""type="radio" placeholder={user.role} />
                     <label htmlFor="">editor</label>
-                    <input type="radio" placeholder={user.role} />
-                    <button>Update</button>
+                    <input name=""type="radio" placeholder={user.role} />
                   </div>
+
+
+
                   {/* FOR EACH DATABASE, RENDER ITEM */}
                   <div style={{ backgroundColor: "yellow", maxWidth: "20vw" }}>
                     <h3>Database Access:</h3>
+                    {collections.map((collection) => (
                     <div>
-                      <label htmlFor="">Nike shop</label>
-                      <input type="checkbox" />
-                    </div>
-                    <div>
-                      <label htmlFor="">Adidas</label>
-                      <input type="checkbox" />
-                    </div>
+                      <label htmlFor="">{collection.collection}</label>
+                      <input onChange={(e) => {
+                        handleCheck(e)
+
+                      }}type="checkbox" value={collection.collection} />
+                    </div>)
+                      
+                    )}
                   </div>
+                  <button onClick={() => {
+                    updateUser(user.email)}
+                  }>save</button>
                 </div>
-              ) : null}
+                </> ) 
+                
+                
+                
+                : null}
             </div>
           ))}
         </div>
