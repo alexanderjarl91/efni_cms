@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './styles/newEntry.css'
 
-export default function NewEntry ({toggleAddMode, setProducts}) {
+export default function NewEntry ({toggleAddMode, setProducts, currEndPoint}) {
 
     const [newEntry, setNewEntry] = useState({
         productName: '',
@@ -13,7 +13,7 @@ export default function NewEntry ({toggleAddMode, setProducts}) {
 
     const addEntryToDb = () => {
         // Fetch from the api with POST method to add do database
-        fetch("http://efni-api.herokuapp.com/nike", { // Skoða variables fyrir mismunandi endpoint á collections
+        fetch(`https://efni-api.herokuapp.com/${currEndPoint}`, { 
           method: 'POST', 
           body: JSON.stringify({
               productName: newEntry.productName,
