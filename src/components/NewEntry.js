@@ -45,7 +45,7 @@ export default function NewEntry ({toggleAddMode, setProducts, currEndPoint}) {
 
     console.log(newEntry)
 
-    const handleCancel = (e) => {
+    const handleCancel = () => {
         // Toggle back to collections
         toggleAddMode()
     }

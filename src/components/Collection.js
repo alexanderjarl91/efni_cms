@@ -13,6 +13,7 @@ export default function Collection(props) {
   const [currCollection, setCurrCollection] = useState([]);
   const { products, setProducts } = useContext(DataContext);
   const [editMode, setEditMode] = useState(false);
+  const [productToEdit, setProductToEdit] = useState([]);
 
   useEffect(() => {
     // Get the collection from the url
@@ -48,19 +49,25 @@ export default function Collection(props) {
       .catch((error) => console.error(error));
   };
 
-  // TODO
-  // Make a editEntry component which gets info on porduct from collection
-  // Get the clicked products info by id
-  // Display the info in editable inputs in return
-  // Update and cancel button
-  // Make a PATCH method fetch call on update and close edit
-  // setEditProduct?
-  
 
+  // TODO / Checkout
+  // Gera Delete conformation
+  // Ath þegar collection síða er nýbúin að refreshast, og ýtt er á edit, kemur ekkert.
+ 
+  // Þarf að tengja formið við rétt object, svo það opnist bara eitt, eins og er opnast 
+  // tvö form og sama object birtist í báðum. Þarf líka að hreinsa state-ið áður en nýr er opnaður.
+  // Spurning hvort að það þurfi að gera foreach eða if statement á EditEntry component í return
+  // Þarf einhvern veginn að reseta productToEdit state-ið eftir að edit verður false
 
   const toggleEdit = (id) => {
+    if (editMode !== false) {
+        const currProduct = currCollection.find((product) => id === product._id)
+        setProductToEdit(currProduct)
+        console.log(productToEdit)
+    } 
+    // Kannski nota bara cancel til þess að loka, ekki toggla svo að það sé hægt að reseta state-ið
       setEditMode(!editMode);
-      console.log("it works" + id)
+      console.log(editMode)
   }
 
   return (
@@ -102,7 +109,7 @@ export default function Collection(props) {
                 <EditIcon className="collection__actionIcons" onClick={() => toggleEdit(product._id)}/>
                 <DeleteIcon className="collection__actionIcons" onClick={() => handleDelete(product._id)}/>
                 {editMode ? (
-                    <EditEntry/>
+                    <EditEntry setEditMode={setEditMode} productToEdit={productToEdit}/>
                 ) : null}
               </React.Fragment>
 
