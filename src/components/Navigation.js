@@ -9,7 +9,6 @@ export default function Navigation({ goToCollection }) {
   const { user } = useContext(AuthContext);
   const { userData } = useContext(DataContext);
   const { collections } = useContext(DataContext);
-  
 
   const toggleAdminView = () => {
     setIsAdmin(!isAdmin);
@@ -23,6 +22,9 @@ export default function Navigation({ goToCollection }) {
       }
     });
   }, [userData]);
+
+  const currentUser = userData.find((x) => x.email === user.email);
+
 
   return (
     <>
@@ -42,7 +44,33 @@ export default function Navigation({ goToCollection }) {
             <Link to="/">
               <p>Dashboard</p>
             </Link>
-            {collections.map((collection, index) => (<div key={index}><Link to={{pathname:"/collection", search:`?name=${collection.collection}`}}>{collection.collection}</Link></div>))}
+
+
+             {currentUser? currentUser.access.map((database) => (
+            <div>
+               <Link to={{
+                 pathname: "/collection",
+                 search: `?name=${database}`,
+                }}> {database}</Link>
+                </div>
+                )): null} 
+
+                
+
+
+            {/* {collections.map((collection, index) => (
+              <div key={index}>
+                <Link
+                  to={{
+                    pathname: "/collection",
+                    search: `?name=${collection.collection}`,
+                  }}
+                >
+                  {collection.collection}
+                </Link>
+              </div>
+            ))} */}
+
             <Link to="/profile">
               <p>Profile</p>
             </Link>

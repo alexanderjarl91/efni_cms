@@ -2,13 +2,17 @@ import React, { useEffect, useState, useContext } from "react";
 import queryString from 'query-string';
 import "./styles/collection.css";
 import NewEntry from "./NewEntry";
+import EditEntry from "./EditEntry";
 import { DataContext } from "../context";
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 export default function Collection(props) {
   const [addMode, setAddMode] = useState(false);
   const [currEndPoint, setCurrEndPoint] = useState('');
   const [currCollection, setCurrCollection] = useState([]);
   const { products, setProducts } = useContext(DataContext);
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     // Get the collection from the url
@@ -44,14 +48,25 @@ export default function Collection(props) {
       .catch((error) => console.error(error));
   };
 
-  // const productList = products.map((product)=>{
-  //     <p>{product.productName}</p>
-  // })
+  // TODO
+  // Make a editEntry component which gets info on porduct from collection
+  // Get the clicked products info by id
+  // Display the info in editable inputs in return
+  // Update and cancel button
+  // Make a PATCH method fetch call on update and close edit
+  // setEditProduct?
+  
+
+
+  const toggleEdit = (id) => {
+      setEditMode(!editMode);
+      console.log("it works" + id)
+  }
 
   return (
     <>
       {addMode ? (
-        <NewEntry setProducts={setCurrCollection} toggleAddMode={toggleAddMode} />
+        <NewEntry setProducts={setCurrCollection} currEndPoint={currEndPoint} toggleAddMode={toggleAddMode} />
       ) : null}
       <div>
         <h1>{currEndPoint}</h1>
@@ -69,6 +84,7 @@ export default function Collection(props) {
             <h4>on sale?</h4>
             <h4>description</h4>
             <h4></h4>
+            <h4></h4>
 
             {currCollection.map((product) => (
               <React.Fragment key={product._id}>
@@ -83,11 +99,16 @@ export default function Collection(props) {
                 </a>
                 <p>{product.productOnSale ? "true" : "false"}</p>
                 <p>{product.productDescription}</p>
-                <button onClick={() => handleDelete(product._id)}>
-                  Delete
-                </button>
+                <EditIcon className="collection__actionIcons" onClick={() => toggleEdit(product._id)}/>
+                <DeleteIcon className="collection__actionIcons" onClick={() => handleDelete(product._id)}/>
+                {editMode ? (
+                    <EditEntry/>
+                ) : null}
               </React.Fragment>
+
             ))}
+             
+           
           </div>
         </div>
       </div>
