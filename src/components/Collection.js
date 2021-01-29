@@ -1,11 +1,32 @@
 import React, { useEffect, useState, useContext } from "react";
+import queryString from 'query-string';
 import "./styles/collection.css";
 import NewEntry from "./NewEntry";
 import { DataContext } from "../context";
 
-export default function Collection() {
+export default function Collection(props) {
   const [addMode, setAddMode] = useState(false);
+  const [currEndPoint, setCurrEndPoint] = useState('');
+  const [currCollection, setCurrCollection] = useState([]);
   const { products, setProducts } = useContext(DataContext);
+
+  useEffect(() => {
+    // Get the collection from the url
+    const collectionQs = queryString.parse(window.location.search);
+    setCurrEndPoint(collectionQs.name);
+
+    const getCollection = async () => {
+      try {
+        const response = await fetch(`https://efni-api.herokuapp.com/${collectionQs.name}`);
+        const data = await response.json();
+        setCurrCollection(data);
+      } catch(err) {
+        console.log(err)
+      }
+    }
+
+    getCollection();
+  }, [window.location.search]);
 
   const toggleAddMode = () => {
     setAddMode(!addMode);
@@ -14,12 +35,12 @@ export default function Collection() {
   // Handle when delete button is clicked
   const handleDelete = (id) => {
     // Fetch from the api with DELETE method to delete from database
-    fetch(`https://efni-api.herokuapp.com/nike/${id}`, {
+    fetch(`https://efni-api.herokuapp.com/${currEndPoint}/${id}`, {
       method: "DELETE",
     })
       .then((r) => r.json())
       // Filtering and finding the name to remove from id
-      .then(() => setProducts(products.filter((product) => id !== product._id)))
+      .then(() => setCurrCollection(currCollection.filter((product) => id !== product._id)))
       .catch((error) => console.error(error));
   };
 
@@ -30,10 +51,10 @@ export default function Collection() {
   return (
     <>
       {addMode ? (
-        <NewEntry setProducts={setProducts} toggleAddMode={toggleAddMode} />
+        <NewEntry setProducts={setCurrCollection} toggleAddMode={toggleAddMode} />
       ) : null}
       <div>
-        <h1>Collection Name</h1>
+        <h1>{currEndPoint}</h1>
 
         <div className="collection__entryHeader">
           <h4>entries:</h4>
@@ -49,7 +70,7 @@ export default function Collection() {
             <h4>description</h4>
             <h4></h4>
 
-            {products.map((product) => (
+            {currCollection.map((product) => (
               <React.Fragment key={product._id}>
                 <p>{product.productName}</p>
                 <p>{product.productPrice}</p>

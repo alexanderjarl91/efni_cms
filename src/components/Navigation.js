@@ -42,7 +42,7 @@ export default function Navigation({ goToCollection }) {
             <Link to="/">
               <p>Dashboard</p>
             </Link>
-            {collections.map((collection) => (<div><Link to="/collection">{collection.collection}</Link></div>))}
+            {collections.map((collection, index) => (<div key={index}><Link to={{pathname:"/collection", search:`?name=${collection.collection}`}}>{collection.collection}</Link></div>))}
             <Link to="/profile">
               <p>Profile</p>
             </Link>
