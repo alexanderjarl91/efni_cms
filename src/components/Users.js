@@ -96,14 +96,13 @@ export default function Users() {
   return (
     <div className="users__comp">
       {/* TABLE TITLES */}
-      <h1 className="users__title">Users</h1>
-      <div className="users__titles">
-        {/* TABLE TITLES */}
-        <h4>name</h4>
-        <h4>email</h4>
-        <h4>user role</h4>
-        <h4>assigned databases</h4>
+      <div className="users__header">
+      <h4>Name</h4>
+        <h4>E-mail</h4>
+        <h4>Role</h4>
+        <h4>Access</h4>
       </div>
+
 
       {/* DISPLAY USER DATA */}
       {users.length > 0 ? (

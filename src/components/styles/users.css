@@ -1,21 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap");
+
 .users__comp {
-  border: 1px solid black;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 1.53px 3.52859px rgba(0, 0, 0, 0.45);
   max-width: 70vw;
   margin: 0 auto;
-  padding: 50px;
+  padding-bottom: 10px;
+  /* padding: 50px; */
 }
 
-.users__title {
-  text-align: center;
-  margin-bottom: 1rem;
+.users__header {
+  width: 100%;
+  height: 50px;
+  background: rgba(38, 55, 116, 0.1);
+  border-radius: 10px 10px 0px 0px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.users__titles {
-  margin: 0 auto;
-  display: grid;
-  width: 60vw;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  font-size: 12px;
+.users__header > h4 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+
+  color: #263774;
+}
+
+.users__user > p {
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 16px;
+  color: #727272;
 }
 
 .user__data {
@@ -25,6 +44,10 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   font-size: 12px;
   padding: 1rem;
+
+  font-size: 14px;
+  line-height: 16px;
+  color: #727272;
 }
 
 .user__data:hover {

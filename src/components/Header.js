@@ -5,6 +5,7 @@ import firebase from "../firebase";
 import { db } from "../firebase";
 import "./styles/header.css";
 import Avatar from "@material-ui/core/Avatar";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 export default function Header() {
   const { user } = useContext(AuthContext); //current user info
@@ -38,7 +39,7 @@ export default function Header() {
           to="/profile"
         >
           <Avatar src={user.photoURL} style={{ marginRight: "8px" }} />
-          <div>
+          <div className="header__userName">
             <p>{user.displayName}</p>
             <p style={{ opacity: "0.5", fontSize: "8px" }}>
               , {currentUserRole}
@@ -46,7 +47,10 @@ export default function Header() {
           </div>
         </Link>
       </div>
-      <button onClick={logOut}>log out</button>
+      <ExitToAppIcon
+        className="header__logout"
+        onClick={logOut}
+      ></ExitToAppIcon>
     </div>
   );
 }
