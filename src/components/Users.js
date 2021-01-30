@@ -1,20 +1,37 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./styles/users.css";
 import { AuthContext, DataContext } from "../context";
 import { db } from "../firebase";
 
 export default function Users() {
   const { user } = useContext(AuthContext);
-  const { userData, collections } = useContext(DataContext);
-  const [users, setUsers] = useState([]);
+  const { collections } = useContext(DataContext);
   const [selectedDatabase, setSelectedDatabase] = useState([]);
   const [role, setRole] = useState("");
   const [name, setName] = useState("");
+  const [users, setUsers] = useState([]);
+  const [state, setState] = useState(false);
 
-  console.log(user);
-  //display edit window
+  useEffect(() => {
+    const getUsers = async () => {
+      const response = db.collection("users");
+      const data = await response.get();
+
+      const userArray = [];
+      data.docs.forEach((item) => {
+        userArray.push(item.data());
+      });
+      setUsers(userArray);
+    };
+    getUsers();
+  }, [state]);
+
+  useEffect(() => {
+    console.log(users);
+  }, [users]);
+
   const toggleEdit = (index) => {
-    const usersCopy = [...userData];
+    const usersCopy = [...users];
     if (usersCopy[index].editUser !== true) {
       usersCopy.forEach((user) => {
         user.editUser = false;
@@ -22,6 +39,7 @@ export default function Users() {
     }
     usersCopy[index].editUser = !usersCopy[index].editUser;
     setUsers(usersCopy);
+    setName(user.displayName);
   };
 
   // check if checkbox is checked, set database state according to
@@ -58,6 +76,7 @@ export default function Users() {
       name: name,
     });
     console.log(user);
+    setState(!state);
   };
 
   const handleRole = (e) => {
@@ -66,6 +85,7 @@ export default function Users() {
     } else {
       setRole("editor");
     }
+    console.log(role);
   };
 
   const handleName = (e) => {
@@ -86,9 +106,9 @@ export default function Users() {
       </div>
 
       {/* DISPLAY USER DATA */}
-      {userData.length > 0 ? (
+      {users.length > 0 ? (
         <div>
-          {userData.map((user, index) => (
+          {users.map((user, index) => (
             <div key={user.email}>
               <div
                 onClick={(e) => {
@@ -100,7 +120,8 @@ export default function Users() {
                 <p>{user.name}</p>
                 <p>{user.email}</p>
                 {user.role === "admin" ? <p>{user.role}</p> : <p>Editor</p>}
-                <p>my databases</p>
+
+                {user.access ? <p>{user.access}</p> : <p>No access</p>}
 
                 {/* EDITMODE */}
               </div>
@@ -109,11 +130,7 @@ export default function Users() {
                   <div className="users__editMode">
                     <div>
                       <h3>Name</h3>
-                      <input
-                        type="text"
-                        defaultValue={user.name}
-                        onChange={handleName}
-                      />
+                      <p>{user.name}</p>
 
                       <h3>Email</h3>
                       <p>{user.email}</p>
@@ -125,19 +142,33 @@ export default function Users() {
                     </div>
                     <div>
                       <h3>User role</h3>
-                      <label htmlFor="">
-                        admin
-                        <input
-                          name="role"
-                          type="checkbox"
-                          placeholder={user.role}
-                          onChange={(e) => {
-                            handleRole(e);
-                          }}
-                        />
-                      </label>
-                    </div>
 
+                      {user.role === "admin" ? (
+                        <label htmlFor="">
+                          admin
+                          <input
+                            name="role"
+                            type="checkbox"
+                            checked="true"
+                            onChange={(e) => {
+                              handleRole(e);
+                            }}
+                          />
+                        </label>
+                      ) : (
+                        <label htmlFor="">
+                          admin
+                          <input
+                            name="role"
+                            type="checkbox"
+                            checked="false"
+                            onChange={(e) => {
+                              handleRole(e);
+                            }}
+                          />
+                        </label>
+                      )}
+                    </div>
                     {/* FOR EACH DATABASE, RENDER ITEM */}
                     <div
                       style={{ backgroundColor: "yellow", maxWidth: "20vw" }}
@@ -159,6 +190,7 @@ export default function Users() {
                     <button
                       onClick={() => {
                         updateUser(user.email);
+                        toggleEdit(index);
                       }}
                     >
                       save
