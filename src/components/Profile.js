@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import "./styles/profile.css";
-import firebase from "../firebase";
 import { AuthContext } from "../context";
 
 export default function Profile() {
@@ -20,7 +19,7 @@ export default function Profile() {
       {editMode ? (
         //in edit mode
         <div>
-          <img className="profile__avatar" src={user.photoURL} />
+          <img alt="" className="profile__avatar" src={user.photoURL} />
           <div>
             <h4>Name</h4>
             <input type="text" placeholder={user.displayName} />
@@ -41,7 +40,7 @@ export default function Profile() {
       ) : (
         //normal mode
         <div className="profile__container">
-          <img className="profile__avatar" src={user.photoURL} />
+          <img alt="" className="profile__avatar" src={user.photoURL} />
           <h1>{user.displayName}</h1>
           <button onClick={editProfile}>edit profile</button>
           <button onClick={logUser}>console log user</button>

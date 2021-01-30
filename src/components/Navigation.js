@@ -1,29 +1,24 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext, authContext, DataContext } from "../context";
+import { AuthContext, DataContext } from "../context";
 
 export default function Navigation({ goToCollection }) {
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [currentUserRole, setCurrentUserRole] = useState("editor"); //current users role
-
+  
   const { user } = useContext(AuthContext);
   const { userData } = useContext(DataContext);
   const { collections } = useContext(DataContext);
+  const [currentUserRole, setCurrentUserRole] = useState("editor"); //current users role
 
-  const toggleAdminView = () => {
-    setIsAdmin(!isAdmin);
-  };
-
-  useEffect(() => {
-    userData.forEach((currUser) => {
-      if (currUser.email == user.email) {
-        setCurrentUserRole(currUser.role);
-        console.log(currUser.role);
-      }
-    });
-  }, [userData]);
 
   const currentUser = userData.find((x) => x.email === user.email);
+  
+  
+  
+  useEffect(() => {
+    setCurrentUserRole('admin')
+
+  }, [userData]);
+
 
 
   return (
@@ -44,39 +39,29 @@ export default function Navigation({ goToCollection }) {
             <Link to="/">
               <p>Dashboard</p>
             </Link>
-
-
-             {currentUser? currentUser.access.map((database) => (
-            <div>
-               <Link to={{
-                 pathname: "/collection",
-                 search: `?name=${database}`,
-                }}> {database}</Link>
-                </div>
-                )): null} 
-
-                
-
-
-            {/* {collections.map((collection, index) => (
-              <div key={index}>
-                <Link
-                  to={{
-                    pathname: "/collection",
-                    search: `?name=${collection.collection}`,
-                  }}
-                >
-                  {collection.collection}
-                </Link>
-              </div>
-            ))} */}
-
+            
+            {currentUser ? 
+            <>{currentUser.access
+             ? currentUser.access.map((database) => (
+                 <div key={database}>
+                   <Link
+                     to={{
+                       pathname: "/collection",
+                       search: `?name=${database}`,
+                     }}>
+                     {database}
+                   </Link>
+                 </div>
+               ))
+             : null }</>
+            : null}
             <Link to="/profile">
               <p>Profile</p>
             </Link>
           </div>
-
-          {currentUserRole == "admin" ? (
+          
+          {currentUser? 
+          <>{currentUser.role === "admin" ? (
             <div className="adminNav">
               <h1 className="adminNav">Admin nav</h1>
               <Link to="/users">
@@ -86,9 +71,9 @@ export default function Navigation({ goToCollection }) {
                 <p>API generator</p>
               </Link>
             </div>
-          ) : (
-            <div></div>
-          )}
+          ) : null}</>
+          
+          : null}
         </nav>
       </div>
     </>

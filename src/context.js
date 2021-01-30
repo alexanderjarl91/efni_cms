@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import firebase from "./firebase";
 import { db } from "./firebase";
 
@@ -35,7 +35,6 @@ export const DataProvider = ({ children }) => {
       data.docs.forEach((item) => {
         userArray.push(item.data());
       });
-
       setUserData(userArray);
     };
 
@@ -44,16 +43,16 @@ export const DataProvider = ({ children }) => {
         const response = await fetch("https://efni-api.herokuapp.com/nike");
         const data = await response.json();
         setProducts(data);
-        console.log(products);
       } catch (err) {
         console.log(err);
       }
     };
 
-    
     const getCollections = async () => {
       try {
-        const response = await fetch("https://efni-api.herokuapp.com/collections");
+        const response = await fetch(
+          "https://efni-api.herokuapp.com/collections"
+        );
         const data = await response.json();
         setCollections(data);
       } catch (err) {
@@ -67,7 +66,9 @@ export const DataProvider = ({ children }) => {
   }, []);
 
   return (
-    <DataContext.Provider value={{ userData, products, collections, setProducts, setCollections }}>
+    <DataContext.Provider
+      value={{ userData, products, collections, setProducts, setCollections }}
+    >
       {children}
     </DataContext.Provider>
   );
