@@ -40,6 +40,7 @@ export default function Users() {
     usersCopy[index].editUser = !usersCopy[index].editUser;
     setUsers(usersCopy);
     setName(user.displayName);
+    
   };
 
   // check if checkbox is checked, set database state according to

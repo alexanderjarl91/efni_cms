@@ -14,9 +14,13 @@ export default function Collection(props) {
   const [addMode, setAddMode] = useState(false);
   const [currEndPoint, setCurrEndPoint] = useState('');
   const [currCollection, setCurrCollection] = useState([]);
-  const [editMode, setEditMode] = useState(false);
+//   const [editMode, setEditMode] = useState(false);
   const [productToEdit, setProductToEdit] = useState([]);
   const [allowAccess, setAllowAccess] = useState([false]);
+
+  useEffect(() => {
+     console.log('collection component rerenderd')
+  }, [currCollection])
 
   useEffect(() => {
     const collectionQs = queryString.parse(window.location.search);
@@ -61,30 +65,30 @@ export default function Collection(props) {
 
   // TODO / Checkout
   // Gera Delete conformation
-  // Ath þegar collection síða er nýbúin að refreshast, og ýtt er á edit, kemur ekkert.
+  // Gera submit on enter
+  
  
-  // Þarf að tengja formið við rétt object, svo það opnist bara eitt, eins og er opnast 
-  // tvö form og sama object birtist í báðum. Þarf líka að hreinsa state-ið áður en nýr er opnaður.
-  // Spurning hvort að það þurfi að gera foreach eða if statement á EditEntry component í return
-  // Þarf einhvern veginn að reseta productToEdit state-ið eftir að edit verður false
 
-  const toggleEdit = (id) => {
-    if (editMode !== false) {
-        const currProduct = currCollection.find((product) => id === product._id)
-        setProductToEdit(currProduct)
-        console.log(productToEdit)
-    } 
-    // Kannski nota bara cancel til þess að loka, ekki toggla svo að það sé hægt að reseta state-ið
-      setEditMode(!editMode);
-      console.log(editMode)
-  }
+  const toggleEdit = (index) => {
+    const currCollectionCopy = [...currCollection];
+    setProductToEdit('')
+    if (currCollectionCopy[index].editMode !== true) {
+      currCollectionCopy.forEach((product) => {
+        product.editMode = false;
+      });
+      setProductToEdit(currCollectionCopy[index]);
+    }
+    currCollectionCopy[index].editMode = !currCollectionCopy[index].editMode;
+    setCurrCollection(currCollectionCopy);
+  };
+
 
   return (
     <>
       {allowAccess ? (
         <>
         {addMode ? (
-          <NewEntry setProducts={setCurrCollection} currEndPoint={currEndPoint} toggleAddMode={toggleAddMode} />
+          <NewEntry setCurrCollection={setCurrCollection} currEndPoint={currEndPoint} toggleAddMode={toggleAddMode} />
         ) : null}
         <div>
           <h1>{currEndPoint}</h1>
@@ -104,7 +108,7 @@ export default function Collection(props) {
               <h4></h4>
               <h4></h4>
 
-              {currCollection.map((product) => (
+              {currCollection.map((product, index) => (
                 <React.Fragment key={product._id}>
                   <p>{product.productName}</p>
                   <p>{product.productPrice}</p>
@@ -117,10 +121,10 @@ export default function Collection(props) {
                   </a>
                   <p>{product.productOnSale ? "true" : "false"}</p>
                   <p>{product.productDescription}</p>
-                  <EditIcon className="collection__actionIcons" onClick={() => toggleEdit(product._id)}/>
+                  <EditIcon className="collection__actionIcons" onClick={() => toggleEdit(index)}/>
                   <DeleteIcon className="collection__actionIcons" onClick={() => handleDelete(product._id)}/>
-                  {editMode ? (
-                      <EditEntry setEditMode={setEditMode} productToEdit={productToEdit}/>
+                  {product.editMode ? (
+                      <EditEntry currEndPoint={currEndPoint} key={product._id} id={product._id} currCollection={currCollection} setCurrCollection={setCurrCollection} productToEdit={productToEdit} />
                   ) : null}
                 </React.Fragment>
 

@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import './styles/editEntry.css'
 
-export default function EditEntry ({setProducts, currEndPoint, productToEdit, setEditMode}) {
+export default function EditEntry ({currCollection, setCurrCollection, currEndPoint, productToEdit, id}) {
 
     const [updatedEntry, setUpdatedEntry] = useState({
+        // _id: productToEdit.product._id,
         productName: productToEdit.productName, 
         productPrice: productToEdit.productPrice,
         productImg: productToEdit.productImg,
         productOnSale: productToEdit.productOnSale,
         productDescription: productToEdit.productDescription
     })
-    console.log(productToEdit)
-    console.log(updatedEntry)
 
-    // Skoða PATCH call, ekki að virka
-    const updateEntryInDb = (id) => {
+
+    const updateEntryInDb = (id) => { 
         // Fetch from the api with POST method to add do database
         fetch(`https://efni-api.herokuapp.com/${currEndPoint}/${id}`, { 
           method: 'PATCH', 
@@ -27,16 +26,24 @@ export default function EditEntry ({setProducts, currEndPoint, productToEdit, se
             }), 
           headers: {'Content-Type': 'application/json'}})
         .then((r) => r.json())
-        // Setting the data to state and using concat to add to it
-        .then((data) => setProducts(products => products.concat(data))) // Maybe concat is not the right function here?
+        .then((data) => {
+            const currCollectionCopy = [...currCollection]
+            const productIndex = currCollectionCopy.findIndex((product) => data._id === product._id)
+            currCollectionCopy[productIndex] = data;
+            setCurrCollection(currCollectionCopy);
+        }) 
         .catch((error) => console.error(error))
       }
 
     // Handle submit of the form
     const handleSubmit = (e) => {
     e.preventDefault()
-    updateEntryInDb()
-    setEditMode(false);
+    updateEntryInDb(id)
+    const copyOfCurrCollection = [...currCollection]
+    copyOfCurrCollection.forEach((collection) => {
+        collection.editMode = false
+    })
+    setCurrCollection(copyOfCurrCollection)
   }
 
     // Handle when form changes
@@ -49,8 +56,11 @@ export default function EditEntry ({setProducts, currEndPoint, productToEdit, se
     // console.log(updatedEntry)
 
     const handleCancel = () => {
-        // Toggle back
-          setEditMode(false);
+        const copyOfCurrCollection = [...currCollection]
+        copyOfCurrCollection.forEach((collection) => {
+            collection.editMode = false
+        })
+        setCurrCollection(copyOfCurrCollection)
     }
 
     return (

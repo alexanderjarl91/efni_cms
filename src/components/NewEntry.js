@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './styles/newEntry.css'
 
-export default function NewEntry ({toggleAddMode, setProducts, currEndPoint}) {
+export default function NewEntry ({toggleAddMode, setCurrCollection, currEndPoint}) {
 
     const [newEntry, setNewEntry] = useState({
         productName: '',
@@ -25,7 +25,7 @@ export default function NewEntry ({toggleAddMode, setProducts, currEndPoint}) {
           headers: {'Content-Type': 'application/json'}})
         .then((r) => r.json())
         // Setting the data to state and using concat to add to it
-        .then((data) => setProducts(products => products.concat(data))) 
+        .then((data) => setCurrCollection(products => products.concat(data))) 
         .catch((error) => console.error(error))
       }
 
@@ -40,10 +40,7 @@ export default function NewEntry ({toggleAddMode, setProducts, currEndPoint}) {
     const handleChange = (e) => {
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
         setNewEntry({...newEntry, [e.target.name]: value})
-        console.log(value)  
     }
-
-    console.log(newEntry)
 
     const handleCancel = () => {
         // Toggle back to collections
