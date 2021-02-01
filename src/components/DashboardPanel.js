@@ -4,7 +4,29 @@ import "./styles/dashboard.css";
 
 export default function DashboardPanel() {
   const { user } = useContext(AuthContext);
-  const { collections, setCollections } = useContext(DataContext);
+  const { userData, collections, setCollections } = useContext(DataContext);
+  const [currUser, setCurrUser] = useState(undefined);
+  const [userCollection, setUserCollection] = useState([]);
+
+  useEffect(() => {
+    const foundUser = userData.find(x => x.email === user.email);
+    if(foundUser !== undefined) {
+      console.log('Setting curr');
+      setCurrUser(foundUser);
+    }
+  }, [])
+
+  useEffect(() => {
+    if(currUser !== undefined) {
+      // Get all the collection object that the user should have access to
+      const filtered = collections.filter((item) => currUser.access.includes(item.collection));
+      setUserCollection(filtered);
+    }
+  }, [currUser])
+
+  useEffect(() => {
+  }, [collections])
+//
   // const [collections, setCollections] = useState([]);
 
   // useEffect(() => {
@@ -20,7 +42,7 @@ export default function DashboardPanel() {
   //   getData();
   // }, [])
 
-  const collectionList = collections.map((item, index) => <React.Fragment key={index}><div>{item.collection}</div><div>{item.documentCount}</div><div>3</div><button>edit</button></React.Fragment>)
+  const collectionList = userCollection.map((item, index) => <React.Fragment key={index}><div>{item.collection}</div><div>{item.documentCount}</div><div>3</div><button>edit</button></React.Fragment>);
   return <div>
     <h1>Welcome, {user.displayName}!</h1>
     <div>

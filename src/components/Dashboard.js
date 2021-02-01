@@ -11,20 +11,21 @@ import Profile from "./Profile";
 import ApiGenerator from "./ApiGenerator";
 
 export default function Dashboard() {
+  console.log(window.location.pathname);
   return (
     <div style={{ display: "flex", backgroundColor: "#F0F0F0" }}>
       <Navigation />
       <div className="container">
         <Header />
-        <div>
-        <h1 className="dashboard__title">Users</h1>
-        <Switch>
-          <Route path="/" exact component={DashboardPanel} />
-          <Route path="/users" exact component={Users} />
-          <Route path="/collection" exact component={Collection} />
-          <Route path="/profile" exact component={Profile} />
-          <Route path="/api-generator" exact component={ApiGenerator} />
-        </Switch>
+        <div className="dashboard__container">
+          <h1 className="dashboard__title">{window.location.pathname}</h1>
+          <Switch>
+            <Route path="/" exact component={DashboardPanel} />
+            <Route path="/users" exact component={Users} />
+            <Route path="/collection" exact component={Collection} />
+            <Route path="/profile" exact component={Profile} />
+            <Route path="/api-generator" exact component={ApiGenerator} />
+          </Switch>
         </div>
       </div>
     </div>

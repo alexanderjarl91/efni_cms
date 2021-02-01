@@ -97,12 +97,11 @@ export default function Users() {
     <div className="users__comp">
       {/* TABLE TITLES */}
       <div className="users__header">
-      <h4>Name</h4>
+        <h4>Name</h4>
         <h4>E-mail</h4>
         <h4>Role</h4>
         <h4>Access</h4>
       </div>
-
 
       {/* DISPLAY USER DATA */}
       {users.length > 0 ? (
@@ -128,19 +127,7 @@ export default function Users() {
                 <>
                   <div className="users__editMode">
                     <div>
-                      <h3>Name</h3>
-                      <p>{user.name}</p>
-
-                      <h3>Email</h3>
-                      <p>{user.email}</p>
-                      {user.emailVerified ? (
-                        <p>verified!</p>
-                      ) : (
-                        <p>not verified</p>
-                      )}
-                    </div>
-                    <div>
-                      <h3>User role</h3>
+                      <h3 className="users__editModeTitle">User role</h3>
 
                       {user.role === "admin" ? (
                         <label htmlFor="">
@@ -156,7 +143,7 @@ export default function Users() {
                         </label>
                       ) : (
                         <label htmlFor="">
-                          admin
+                          Admin
                           <input
                             name="role"
                             type="checkbox"
@@ -172,10 +159,12 @@ export default function Users() {
                     <div
                       style={{ backgroundColor: "yellow", maxWidth: "20vw" }}
                     >
-                      <h3>Database Access:</h3>
+                      <h3 className="users__editModeTitle">Database Access:</h3>
                       {collections.map((collection) => (
                         <div key={collection.collection}>
-                          <label htmlFor="">{collection.collection}</label>
+                          <label className="uppercase" htmlFor="">
+                            {collection.collection}
+                          </label>
                           <input
                             onChange={(e) => {
                               handleDatabaseAccess(e);

@@ -16,3 +16,9 @@
   line-height: 49px;
   color: #263774;
 }
+
+.dashboard__container {
+  max-width: 70vw;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
