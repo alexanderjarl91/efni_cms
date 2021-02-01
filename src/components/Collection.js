@@ -6,15 +6,16 @@ import EditEntry from "./EditEntry";
 import { AuthContext, DataContext } from "../context";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import { confirmAlert } from 'react-confirm-alert'; 
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
+
 
 export default function Collection(props) {
-  // const { products, setProducts } = useContext(DataContext);
   const { user } = useContext(AuthContext);
   const { userData } = useContext(DataContext);
   const [addMode, setAddMode] = useState(false);
   const [currEndPoint, setCurrEndPoint] = useState("");
   const [currCollection, setCurrCollection] = useState([]);
-//   const [editMode, setEditMode] = useState(false);
   const [productToEdit, setProductToEdit] = useState([]);
   const [allowAccess, setAllowAccess] = useState([false]);
 
@@ -53,6 +54,7 @@ export default function Collection(props) {
     setAddMode(!addMode);
   };
 
+
   // Handle when delete button is clicked
   const handleDelete = (id) => {
     // Fetch from the api with DELETE method to delete from database
@@ -60,7 +62,7 @@ export default function Collection(props) {
       method: "DELETE",
     })
       .then((r) => r.json())
-      // Filtering and finding the name to remove from id
+      // Filtering and finding the object to remove from id
       .then(() =>
         setCurrCollection(
           currCollection.filter((product) => id !== product._id)
@@ -70,7 +72,6 @@ export default function Collection(props) {
   };
 
   // TODO / Checkout
-  // Gera Delete conformation
   // Gera submit on enter
   
  
@@ -87,6 +88,24 @@ export default function Collection(props) {
     currCollectionCopy[index].editMode = !currCollectionCopy[index].editMode;
     setCurrCollection(currCollectionCopy);
   };
+
+  // Confirm alert using react-confirm-alert module
+  const handleAlert = (id) => {
+    confirmAlert({
+        title: 'Delete product!',
+        message: 'Are you sure?',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => handleDelete(id)
+          },
+          {
+            label: 'No',
+            onClick: () => handleAlert()
+          }
+        ]  
+      });
+  }
 
 
   return (
@@ -106,11 +125,11 @@ export default function Collection(props) {
             
           <div>
             <div className="collection__titles">
-              <h4>Product Name</h4>
-              <h4>product price</h4>
-              <h4>product image</h4>
-              <h4>on sale?</h4>
-              <h4>description</h4>
+              <h4>Name</h4>
+              <h4>Price</h4>
+              <h4>Image</h4>
+              <h4>On sale?</h4>
+              <h4>Description</h4>
               <h4></h4>
               <h4></h4>
 
@@ -128,7 +147,7 @@ export default function Collection(props) {
                   <p>{product.productOnSale ? "true" : "false"}</p>
                   <p>{product.productDescription}</p>
                   <EditIcon className="collection__actionIcons" onClick={() => toggleEdit(index)}/>
-                  <DeleteIcon className="collection__actionIcons" onClick={() => handleDelete(product._id)}/>
+                  <DeleteIcon className="collection__actionIcons" onClick={() => handleAlert(product._id)}/>
                   {product.editMode ? (
                       <EditEntry currEndPoint={currEndPoint} key={product._id} id={product._id} currCollection={currCollection} setCurrCollection={setCurrCollection} productToEdit={productToEdit} />
                   ) : null}
