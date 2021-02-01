@@ -97,20 +97,22 @@ export default function Collection(props) {
           <NewEntry setCurrCollection={setCurrCollection} currEndPoint={currEndPoint} toggleAddMode={toggleAddMode} />
         ) : null}
         <div>
-          <h1>{currEndPoint}</h1>
-
-          <div className="collection__entryHeader">
-            <h4>entries:</h4>
-            <button onClick={toggleAddMode}>add new entry</button>
-          </div>
-
-          <div>
             <h1>{currEndPoint}</h1>
 
             <div className="collection__entryHeader">
               <h4>entries:</h4>
               <button onClick={toggleAddMode}>add new entry</button>
             </div>
+            
+          <div>
+            <div className="collection__titles">
+              <h4>Product Name</h4>
+              <h4>product price</h4>
+              <h4>product image</h4>
+              <h4>on sale?</h4>
+              <h4>description</h4>
+              <h4></h4>
+              <h4></h4>
 
               {currCollection.map((product, index) => (
                 <React.Fragment key={product._id}>
@@ -132,8 +134,9 @@ export default function Collection(props) {
                   ) : null}
                 </React.Fragment>
                 ))}
+                </div>
             </div>
-          </div>
+        </div>
         </>
       ) : (
         <div>No Access to this collection</div>
