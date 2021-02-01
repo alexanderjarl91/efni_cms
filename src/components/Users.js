@@ -3,6 +3,10 @@ import "./styles/users.css";
 import { DataContext } from "../context";
 import { db } from "../firebase";
 
+import { Button } from '@material-ui/core';
+
+const CryptoJS = require('crypto-js');
+
 export default function Users() {
   const { collections, userData, setUserData } = useContext(DataContext);
   const [selectedDatabase, setSelectedDatabase] = useState("");
@@ -69,6 +73,14 @@ export default function Users() {
     console.log(role);
   };
 
+  const gaur = "nonni"
+
+  //API KEY GENERATION
+
+
+
+ 
+
   return (
     <div className="users__comp">
       {/* TABLE TITLES */}
@@ -100,8 +112,10 @@ export default function Users() {
                 {/* EDITMODE */}
               </div>
               {user.editUser ? (
-                <>
+                <div className="editmode__container">
+                  
                   <div className="users__editMode">
+                    
                     <div>
                       <h3 className="users__editModeTitle">User role</h3>
 
@@ -137,16 +151,25 @@ export default function Users() {
                         </div>
                       ))}
                     </div>
-                    <button
-                      onClick={() => {
-                        updateUser(user.email, index);
-                        toggleEdit(index);
-                      }}
-                    >
-                      save
-                    </button>
-                  </div>
-                </>
+                    
+                    </div>
+
+                    {/* EDITMODE FOOTER */}
+                    <div classname="editMode__footer">
+                      <div style={{display:"flex", flexDirection:"column", alignItems: "center", margin: "0 auto"}}> 
+                        <div style={{display: "flex", flexDirection: "column", textAlign:"center"}}>
+                          <label htmlFor="">Your API key</label>
+                          <input type="text" value="API KEY" readOnly/>
+                          <Button style={{background: "#FFFFFF", boxShadow:"0px 4px 4px rgba(0,0,0,0.25", borderRadius: "10px", marginBottom:"2rem", marginTop:"5px"}}>generate api key</Button>
+                        </div>
+                        <Button style={{background: "#FFFFFF", boxShadow:"0px 4px 4px rgba(0,0,0,0.25", borderRadius: "10px"}}
+                          onClick={() => {
+                            updateUser(user.email, index);
+                            toggleEdit(index);
+                          }}>Update User</Button>
+                          </div>
+                    </div>
+                </div>
               ) : null}
             </div>
           ))}

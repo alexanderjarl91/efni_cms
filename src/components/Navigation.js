@@ -43,46 +43,49 @@ export default function Navigation({ goToCollection }) {
           <div className="navigation__items">
             <Link className="navigation__link" to="/">Dashboard</Link>
             <Link className="navigation__link" to="/profile">Profile</Link>
-            <Link onClick={handleShowCollections} className="navigation__link">Collections</Link>
-           
-            {showCollections && currentUser? 
-            <>
-                {currentUser.access
-                  ? currentUser.access.map((database) => (
-                      <div key={database}>
-                        <Link
-                          className="navigation__sublink"
-                          to={{
-                            pathname: "/collection",
-                            search: `?name=${database}`,
-                          }}
-                        >
-                          {database}
-                        </Link>
-                      </div>
-                    ))
-                  : <p>no access</p>}
-              </>
+            <div className="navigation__dropdown">
+              <Link onClick={handleShowCollections} className="navigation__link ">Collections</Link>
+            
+              {showCollections && currentUser? 
+              <>
+                  {currentUser.access
+                    ? currentUser.access.map((database) => (
+                        <div key={database}>
+                          <Link
+                            className="navigation__sublink"
+                            to={{
+                              pathname: "/collection",
+                              search: `?name=${database}`,
+                            }}
+                          >
+                            {database}
+                          </Link>
+                        </div>
+                      ))
+                    : <p>no access</p>}
+                </>
 
-            : console.log('not showing')}
+              : console.log('not showing')}
+              </div>
+            
             
 
-          {currentUser ? (
-            <>
-              {currentUser.role === "admin" ? (
-                <div className="adminNav">
-                  <button onClick={handleShowAdminPanel} className="navigation__link">Admin nav</button>
-                  {showAdminPanel? <div><Link className="navigation__link" to="/users">
-                    <p>Users</p>
-                  </Link>
-                  <Link className="navigation__link" to="/api-generator">
-                    <p>API generator</p>
-                  </Link></div> : null}
-                  
-                </div>
-              ) : null}
-            </>
-          ) : null}
+            {currentUser ? (
+              <>
+                {currentUser.role === "admin" ? (
+                  <div className="adminNav navigation__dropdown">
+                    <button onClick={handleShowAdminPanel} className="navigation__link">Admin nav</button>
+                    {showAdminPanel? <div><Link className="navigation__link" to="/users">
+                      <p>Users</p>
+                    </Link>
+                    <Link className="navigation__link" to="/api-generator">
+                      <p>API generator</p>
+                    </Link></div> : null}
+                    
+                  </div>
+                ) : null}
+              </>
+            ) : null}
           </div>
         </nav>
       </div>
