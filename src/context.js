@@ -37,7 +37,10 @@ export const DataProvider = ({ children }) => {
       });
       setUserData(userArray);
     };
+    getUsers();
+  }, []);
 
+  useEffect(() => {
     const getData = async () => {
       try {
         const response = await fetch("https://efni-api.herokuapp.com/nike");
@@ -47,7 +50,10 @@ export const DataProvider = ({ children }) => {
         console.log(err);
       }
     };
+    getData();
+  }, []);
 
+  useEffect(() => {
     const getCollections = async () => {
       try {
         const response = await fetch(
@@ -55,19 +61,24 @@ export const DataProvider = ({ children }) => {
         );
         const data = await response.json();
         setCollections(data);
+        console.log(data);
       } catch (err) {
         console.log(err);
       }
     };
-
-    getUsers();
-    getData();
     getCollections();
   }, []);
 
   return (
     <DataContext.Provider
-      value={{ userData, products, collections, setProducts, setCollections }}
+      value={{
+        userData,
+        products,
+        collections,
+        setProducts,
+        setCollections,
+        setUserData,
+      }}
     >
       {children}
     </DataContext.Provider>

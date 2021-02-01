@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 //import components
@@ -12,13 +12,20 @@ import ApiGenerator from "./ApiGenerator";
 
 export default function Dashboard() {
   console.log(window.location.pathname);
+
+  const [title, setTitle] = useState("not found");
+
+  useEffect(() => {
+    setTitle(window.location.pathname);
+  }, []);
+
   return (
     <div style={{ display: "flex", backgroundColor: "#F0F0F0" }}>
-      <Navigation />
+      <Navigation setTitle={setTitle} />
       <div className="container">
         <Header />
         <div className="dashboard__container">
-          <h1 className="dashboard__title">{window.location.pathname}</h1>
+          <h1 className="dashboard__title">{title}</h1>
           <Switch>
             <Route path="/" exact component={DashboardPanel} />
             <Route path="/users" exact component={Users} />
