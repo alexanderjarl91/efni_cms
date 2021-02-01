@@ -9,56 +9,47 @@ export default function DashboardPanel() {
   const [userCollection, setUserCollection] = useState([]);
 
   useEffect(() => {
-    const foundUser = userData.find(x => x.email === user.email);
-    if(foundUser !== undefined) {
-      console.log('Setting curr');
+    const foundUser = userData.find((x) => x.email === user.email);
+
+    // console.log(collections);
+    if (foundUser !== undefined) {
       setCurrUser(foundUser);
     }
-  }, [])
+  }, [userData]);
 
   useEffect(() => {
-    if(currUser !== undefined) {
+    if (currUser !== undefined) {
       // Get all the collection object that the user should have access to
-      const filtered = collections.filter((item) => currUser.access.includes(item.collection));
+      const filtered = collections.filter((item) =>
+        currUser.access.includes(item.collection)
+      );
       setUserCollection(filtered);
     }
-  }, [currUser])
+  }, [currUser, collections]);
 
-  useEffect(() => {
-  }, [collections])
-//
-  // const [collections, setCollections] = useState([]);
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const response = await fetch("http://localhost:5000/collections");
-  //       const data = await response.json();
-  //       setCollections(data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getData();
-  // }, [])
-
-  const collectionList = userCollection.map((item, index) => <React.Fragment key={index}><div>{item.collection}</div><div>{item.documentCount}</div><div>3</div><button>edit</button></React.Fragment>);
-  return <div>
-    <h1>Welcome, {user.displayName}!</h1>
+  const collectionList = userCollection.map((item, index) => (
+    <React.Fragment key={index}>
+      <div>{item.collection}</div>
+      <div>{item.documentCount}</div>
+      <div>3</div>
+      <button>edit</button>
+    </React.Fragment>
+  ));
+  return (
     <div>
-      <h4>Your collections:</h4>
-      
-      {/* collection titles */}
-      <div className="dashboard__grid">
-        <h4>name</h4>
-        <h4># of entries</h4>
-        <h4># of editors</h4>
-        <h4></h4>
-        {
-          collectionList
-        }
-      </div>
+      <h1>Welcome, {user.displayName}!</h1>
+      <div>
+        <h4>Your collections:</h4>
 
+        {/* collection titles */}
+        <div className="dashboard__grid">
+          <h4>name</h4>
+          <h4># of entries</h4>
+          <h4># of editors</h4>
+          <h4></h4>
+          {collectionList}
+        </div>
+      </div>
     </div>
-  </div>;
+  );
 }

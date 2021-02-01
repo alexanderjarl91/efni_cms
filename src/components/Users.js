@@ -1,34 +1,21 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./styles/users.css";
-import { AuthContext, DataContext } from "../context";
+import { DataContext } from "../context";
 import { db } from "../firebase";
 
+import { Button } from '@material-ui/core';
+
+const CryptoJS = require('crypto-js');
+
 export default function Users() {
-  const { user } = useContext(AuthContext);
-  const { collections } = useContext(DataContext);
-  const [selectedDatabase, setSelectedDatabase] = useState([]);
-  const [role, setRole] = useState("");
-  const [name, setName] = useState("");
+  const { collections, userData, setUserData } = useContext(DataContext);
+  const [selectedDatabase, setSelectedDatabase] = useState("");
   const [users, setUsers] = useState([]);
-  const [state, setState] = useState(false);
+  const [role, setRole] = useState("");
 
   useEffect(() => {
-    const getUsers = async () => {
-      const response = db.collection("users");
-      const data = await response.get();
-
-      const userArray = [];
-      data.docs.forEach((item) => {
-        userArray.push(item.data());
-      });
-      setUsers(userArray);
-    };
-    getUsers();
-  }, [state]);
-
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
+    setUsers(userData);
+  }, [userData]);
 
   const toggleEdit = (index) => {
     const usersCopy = [...users];
@@ -39,8 +26,7 @@ export default function Users() {
     }
     usersCopy[index].editUser = !usersCopy[index].editUser;
     setUsers(usersCopy);
-    setName(user.displayName);
-    
+    setRole(role || users[index].role || "editor");
   };
 
   // check if checkbox is checked, set database state according to
@@ -48,7 +34,6 @@ export default function Users() {
     if (e.target.checked) {
       // return (cancel) if item is already in array
       if (selectedDatabase.includes(e.target.value)) return;
-
       //add item if checked
       setSelectedDatabase([...selectedDatabase, e.target.value]);
       console.log(selectedDatabase);
@@ -60,27 +45,26 @@ export default function Users() {
       setSelectedDatabase(copyOfSelectedDatabase);
     }
   };
-  //update user button
-  const updateUser = (email) => {
-    const userRef = db.collection("users").doc(email);
 
-    //auth database
-    user.updateProfile({
-      displayName: name,
-    });
+  //update user button
+  const updateUser = (email, index) => {
+    const userRef = db.collection("users").doc(email);
 
     //firestore database
     userRef.update({
       //update these properties:
       access: selectedDatabase,
       role: role,
-      name: name,
     });
-    console.log(user);
-    setState(!state);
+    const copyOfUserData = [...userData];
+    copyOfUserData[index].access = selectedDatabase;
+    copyOfUserData[index].role = role;
+
+    setUserData(copyOfUserData);
   };
 
   const handleRole = (e) => {
+    console.log(e.target.checked);
     if (e.target.checked) {
       setRole("admin");
     } else {
@@ -89,10 +73,13 @@ export default function Users() {
     console.log(role);
   };
 
-  const handleName = (e) => {
-    setName(e.target.value);
-    console.log(name);
-  };
+  const gaur = "nonni"
+
+  //API KEY GENERATION
+
+
+
+ 
 
   return (
     <div className="users__comp">
@@ -125,36 +112,24 @@ export default function Users() {
                 {/* EDITMODE */}
               </div>
               {user.editUser ? (
-                <>
+                <div className="editmode__container">
+                  
                   <div className="users__editMode">
+                    
                     <div>
                       <h3 className="users__editModeTitle">User role</h3>
 
-                      {user.role === "admin" ? (
-                        <label htmlFor="">
-                          admin
-                          <input
-                            name="role"
-                            type="checkbox"
-                            checked="true"
-                            onChange={(e) => {
-                              handleRole(e);
-                            }}
-                          />
-                        </label>
-                      ) : (
-                        <label htmlFor="">
-                          Admin
-                          <input
-                            name="role"
-                            type="checkbox"
-                            checked="false"
-                            onChange={(e) => {
-                              handleRole(e);
-                            }}
-                          />
-                        </label>
-                      )}
+                      <label htmlFor="">
+                        admin
+                        <input
+                          name="role"
+                          type="checkbox"
+                          checked={role === "admin"}
+                          onChange={(e) => {
+                            handleRole(e);
+                          }}
+                        />
+                      </label>
                     </div>
                     {/* FOR EACH DATABASE, RENDER ITEM */}
                     <div
@@ -176,16 +151,25 @@ export default function Users() {
                         </div>
                       ))}
                     </div>
-                    <button
-                      onClick={() => {
-                        updateUser(user.email);
-                        toggleEdit(index);
-                      }}
-                    >
-                      save
-                    </button>
-                  </div>
-                </>
+                    
+                    </div>
+
+                    {/* EDITMODE FOOTER */}
+                    <div classname="editMode__footer">
+                      <div style={{display:"flex", flexDirection:"column", alignItems: "center", margin: "0 auto"}}> 
+                        <div style={{display: "flex", flexDirection: "column", textAlign:"center"}}>
+                          <label htmlFor="">Your API key</label>
+                          <input type="text" value="API KEY" readOnly/>
+                          <Button style={{background: "#FFFFFF", boxShadow:"0px 4px 4px rgba(0,0,0,0.25", borderRadius: "10px", marginBottom:"2rem", marginTop:"5px"}}>generate api key</Button>
+                        </div>
+                        <Button style={{background: "#FFFFFF", boxShadow:"0px 4px 4px rgba(0,0,0,0.25", borderRadius: "10px"}}
+                          onClick={() => {
+                            updateUser(user.email, index);
+                            toggleEdit(index);
+                          }}>Update User</Button>
+                          </div>
+                    </div>
+                </div>
               ) : null}
             </div>
           ))}
