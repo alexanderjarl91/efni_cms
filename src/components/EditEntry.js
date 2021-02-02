@@ -64,16 +64,25 @@ export default function EditEntry ({currCollection, setCurrCollection, currEndPo
     }
 
     return (
-        <div key={updatedEntry._id}>
-        <form className="editEntry__form" onSubmit={handleSubmit}>
-            <input type="text" name="productName" placeholder="Product name ..." value={updatedEntry.productName} onChange={handleChange} required/>
-            <input type="number" name="productPrice" placeholder="Product price ..." value={updatedEntry.productPrice} onChange={handleChange} required/>
-            <input type="url" name="productImg" placeholder="Product image url ..." value={updatedEntry.productImg} onChange={handleChange}/>
-            <input type="checkbox" name="productOnSale" checked={updatedEntry.productOnSale} onChange={handleChange}/>
-            <textarea name="productDescription" placeholder="Product description ..." value={updatedEntry.productDescription} onChange={handleChange}/>
-            <button onClick={handleCancel}>Cancel</button>
-            <button type='submit'>Update</button>
-        </form>
+        <div className="editEntry__formOverlay" key={updatedEntry._id}>
+            <div className="editEntry__formContainer">
+                <form className="editEntry__form" onSubmit={handleSubmit}>
+                    <label>Product name</label>
+                    <input type="text" name="productName" placeholder="Product name ..." value={updatedEntry.productName} onChange={handleChange} required/> <br/>
+                    <label>Product price</label>
+                    <input type="number" name="productPrice" placeholder="Product price ..." value={updatedEntry.productPrice} onChange={handleChange} required/> <br/>
+                    <label>Product image url</label>
+                    <input type="url" name="productImg" placeholder="Product image url ..." value={updatedEntry.productImg} onChange={handleChange}/> <br/>
+                    <label>On sale?</label>
+                    <input type="checkbox" name="productOnSale" checked={updatedEntry.productOnSale} onChange={handleChange}/> <br/>
+                    <label>Product description</label>
+                    <textarea name="productDescription" placeholder="Product description ..." value={updatedEntry.productDescription} onChange={handleChange}/> <br/>
+                    <div className="editEntry__buttonContainer">  
+                        <button className="editEntry__formButtons" onClick={handleCancel}>Cancel</button>
+                        <button className="editEntry__formButtons" type='submit'>Update</button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }
