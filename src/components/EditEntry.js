@@ -64,16 +64,16 @@ export default function EditEntry ({currCollection, setCurrCollection, currEndPo
     }
 
     return (
-        <>
-        <form className="EditEntry__form" onSubmit={handleSubmit}>
-            <input type="text" name="productName" value={updatedEntry.productName} onChange={handleChange}/>
-            <input type="text" name="productPrice" value={updatedEntry.productPrice} onChange={handleChange}/>
-            <input type="text" name="productImg" value={updatedEntry.productImg} onChange={handleChange}/>
+        <div key={updatedEntry._id}>
+        <form className="editEntry__form" onSubmit={handleSubmit}>
+            <input type="text" name="productName" placeholder="Product name ..." value={updatedEntry.productName} onChange={handleChange} required/>
+            <input type="number" name="productPrice" placeholder="Product price ..." value={updatedEntry.productPrice} onChange={handleChange} required/>
+            <input type="url" name="productImg" placeholder="Product image url ..." value={updatedEntry.productImg} onChange={handleChange}/>
             <input type="checkbox" name="productOnSale" checked={updatedEntry.productOnSale} onChange={handleChange}/>
-            <textarea name="productDescription" value={updatedEntry.productDescription} onChange={handleChange}/>
+            <textarea name="productDescription" placeholder="Product description ..." value={updatedEntry.productDescription} onChange={handleChange}/>
             <button onClick={handleCancel}>Cancel</button>
             <button type='submit'>Update</button>
         </form>
-        </>
+        </div>
     );
 }

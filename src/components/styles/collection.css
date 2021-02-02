@@ -1,6 +1,6 @@
 .collection__entryHeader {
   display: flex;
-  width: 80vw;
+  width: 100%;
   margin: 20px;
   justify-content: space-around;
 }
@@ -12,7 +12,7 @@
 
 .collection__titles {
   display: grid;
-  width: 80vw;
+  width: 100%;
   grid-template-columns: 2fr 1fr 1fr 1fr 2fr 1fr 1fr;
 }
 
@@ -23,6 +23,7 @@
 } */
 
 .collection__imageLink {
+  margin: 0;
   color: black;
 }
 

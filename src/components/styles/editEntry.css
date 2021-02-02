@@ -1,4 +1,5 @@
-.EditEntry__form {
+.editEntry__form {
     display: grid;
+    width: 100%;
     grid-template-columns: 2fr 1fr 1fr 1fr 2fr 1fr 1fr;
 }

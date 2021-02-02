@@ -51,27 +51,27 @@ export default function NewEntry ({toggleAddMode, setCurrCollection, currEndPoin
     <div className="newEntry__formContainer">
         <form onSubmit={handleSubmit}>
             <label>
-                productName
-                <input type="text" name="productName" value={newEntry.productName} onChange={handleChange}/>
+                Product name
+                <input type="text" name="productName" value={newEntry.productName} onChange={handleChange} required/>
             </label>
             <br/>
             <label>
-                productPrice
-                <input type="text" name="productPrice" value={newEntry.productPrice} onChange={handleChange}/>
+                Product price
+                <input type="number" name="productPrice" value={newEntry.productPrice} onChange={handleChange} required/>
             </label>
             <br/>
             <label>
-                productImg
-                <input type="text" name="productImg" value={newEntry.productImg} onChange={handleChange}/>
+                Product Image url
+                <input type="url" name="productImg" value={newEntry.productImg} onChange={handleChange}/>
             </label>
             <br/>
             <label>
-                onSale
+                On sale?
                 <input type="checkbox" name="productOnSale" checked={newEntry.productOnSale} onChange={handleChange}/>
             </label>
             <br/>
             <label>
-                description
+                Product description
                 <textarea name="productDescription" value={newEntry.productDescription} onChange={handleChange}/>
             </label>
             <br/>
