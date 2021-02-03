@@ -18,7 +18,7 @@ export default function EditEntry ({currCollection, setCurrCollection, currEndPo
     const updateEntryInDb = async (id) => { 
         const idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true);
         // Fetch from the api with POST method to add do database
-        fetch(`https://efni-api.herokuapp.com//${currEndPoint}/${id}`, { 
+        fetch(`https://efni-api.herokuapp.com/${currEndPoint}/${id}`, { 
           method: 'PATCH', 
           body: JSON.stringify({
               productName: updatedEntry.productName,

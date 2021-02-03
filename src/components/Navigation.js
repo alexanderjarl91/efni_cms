@@ -29,9 +29,6 @@ export default function Navigation({ goToCollection }) {
     setShowAdminPanel(!showAdminPanel)
   }
 
-
-
-
   return (
     <>
     <div className="navbar__navWrapper">

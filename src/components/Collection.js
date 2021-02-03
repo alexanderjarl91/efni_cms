@@ -29,8 +29,8 @@ export default function Collection(props) {
     const foundUser = userData.find((x) => x.email === user.email); // Get the current user object that contains the data access
     // If the user has the requeststring in his access array we allow him access
 
-    // if (foundUser && foundUser.access.includes(collectionQs.name)) {
-      // Get the collection from the url
+    if (foundUser && foundUser.access.includes(collectionQs.name)) {
+      //Get the collection from the url
       setCurrEndPoint(collectionQs.name);
       setAllowAccess(true);
 
@@ -46,9 +46,9 @@ export default function Collection(props) {
         }
       };
       getCollection();
-    // } else {
-    //   setAllowAccess(false);
-    // }
+    } else {
+      setAllowAccess(false);
+    }
   }, [window.location.search]);
 
   const toggleAddMode = () => {
