@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import './styles/newEntry.css'
+import './styles/newEntry.css';
+import firebase from "firebase/app";
+import "firebase/auth";
+
 
 export default function NewEntry ({toggleAddMode, setCurrCollection, currEndPoint}) {
 
@@ -11,22 +14,26 @@ export default function NewEntry ({toggleAddMode, setCurrCollection, currEndPoin
         productDescription: ''
     })
 
-    const addEntryToDb = () => {
-        // Fetch from the api with POST method to add do database
-        fetch(`https://efni-api.herokuapp.com/${currEndPoint}`, { 
-          method: 'POST', 
-          body: JSON.stringify({
-              productName: newEntry.productName,
-              productPrice: newEntry.productPrice,
-              productImg: newEntry.productImg,
-              productOnSale: newEntry.productOnSale,
-              productDescription: newEntry.productDescription
-            }), 
-          headers: {'Content-Type': 'application/json'}})
-        .then((r) => r.json())
-        // Setting the data to state and using concat to add to it
-        .then((data) => setCurrCollection(products => products.concat(data))) 
-        .catch((error) => console.error(error))
+    const addEntryToDb = async () => {
+        try {
+            const idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true);
+            // Fetch from the api with POST method to add do database
+            const r = await fetch(`https://efni-api.herokuapp.com/${currEndPoint}`, { 
+            method: 'POST',
+            body: JSON.stringify({
+                productName: newEntry.productName,
+                productPrice: newEntry.productPrice,
+                productImg: newEntry.productImg,
+                productOnSale: newEntry.productOnSale,
+                productDescription: newEntry.productDescription
+                }), 
+            headers: {'Content-Type': 'application/json', 'Authorization': idToken}})
+            const data = await r.json();
+            // Setting the data to state and using concat to add to it
+            setCurrCollection(products => products.concat(data))
+        } catch (error) { 
+            console.log(error)
+        }
       }
 
     // Handle submit of the form
