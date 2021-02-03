@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext, DataContext } from "../context";
 import "./styles/navigation.css";
+import matterLogo from "../images/matter-logo.svg"
 
 export default function Navigation({ goToCollection }) {
   const { user } = useContext(AuthContext);
@@ -33,10 +34,11 @@ export default function Navigation({ goToCollection }) {
 
   return (
     <>
+    <div className="navbar__navWrapper">
       <div className="navbar">
         <nav>
           <div className="navbar__header">
-            <img src="https://i.ibb.co/gPwzcw8/logo.png" alt=""/>
+            <img className="navbar__logo" src={matterLogo} alt="logo"/>
             <span className="navbar__line"></span>
           </div>
 
@@ -89,6 +91,7 @@ export default function Navigation({ goToCollection }) {
           </div>
         </nav>
       </div>
+    </div>
     </>
   );
 }

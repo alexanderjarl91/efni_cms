@@ -1,11 +1,13 @@
 .dashboard__appWrapper {
   display: flex;
-  background-color: #F0F0F0;
+  /* background-color: #F0F0F0; */
+  /* background-color: #EEEEEE; */
   height: 100%;
 }
 
 .container {
-  width: 80vw;
+  width: -webkit-fill-available;
+  overflow-y: scroll;
 }
 
 .dashboard__grid {
@@ -21,7 +23,7 @@
   font-weight: normal;
   font-size: 41.5827px;
   line-height: 49px;
-  color: #263774;
+  color: #063852;
 }
 
 .dashboard__container {
