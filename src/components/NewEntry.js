@@ -18,7 +18,7 @@ export default function NewEntry ({toggleAddMode, setCurrCollection, currEndPoin
         try {
             const idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true);
             // Fetch from the api with POST method to add do database
-            const r = await fetch(`http://localhost:5000/${currEndPoint}`, { 
+            const r = await fetch(`https://efni-api.herokuapp.com/${currEndPoint}`, { 
             method: 'POST',
             body: JSON.stringify({
                 productName: newEntry.productName,
