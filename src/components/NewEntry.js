@@ -54,38 +54,31 @@ export default function NewEntry ({toggleAddMode, setCurrCollection, currEndPoin
         toggleAddMode()
     }
 
-    return (
+    return (  
+    <div className="newEntry__formOverlay">
     <div className="newEntry__formContainer">
         <form onSubmit={handleSubmit}>
-            <label>
-                productName
-                <input type="text" name="productName" value={newEntry.productName} onChange={handleChange}/>
-            </label>
+            <label>Product name</label>
+            <input type="text" name="productName" value={newEntry.productName} onChange={handleChange} required/>
             <br/>
-            <label>
-                productPrice
-                <input type="text" name="productPrice" value={newEntry.productPrice} onChange={handleChange}/>
-            </label>
+            <label>Product price</label>
+                <input type="number" name="productPrice" value={newEntry.productPrice} onChange={handleChange} required/>
             <br/>
-            <label>
-                productImg
-                <input type="text" name="productImg" value={newEntry.productImg} onChange={handleChange}/>
-            </label>
+            <label>Product image url</label>
+                <input type="url" name="productImg" value={newEntry.productImg} onChange={handleChange}/>
             <br/>
-            <label>
-                onSale
+            <label>On sale?</label>
                 <input type="checkbox" name="productOnSale" checked={newEntry.productOnSale} onChange={handleChange}/>
-            </label>
             <br/>
-            <label>
-                description
+            <label>Product description</label>
                 <textarea name="productDescription" value={newEntry.productDescription} onChange={handleChange}/>
-            </label>
             <br/>
-            <button onClick={handleCancel}>Cancel</button>
-            <button type='submit'>Save</button>
+            <div className="newEntry__buttonContainer">  
+                <button className="newEntry__formButtons" onClick={handleCancel}>Cancel</button>
+                <button className="newEntry__formButtons" type='submit'>Save</button>
+            </div>
         </form>
-    
+        </div>
     </div>
     );
 }

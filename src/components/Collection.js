@@ -136,6 +136,7 @@ export default function Collection(props) {
                 <React.Fragment key={product._id}>
                   <p>{product.productName}</p>
                   <p>{product.productPrice}</p>
+                  {product.productImg ? (
                   <a
                     className="collection__imageLink"
                     href={product.productImg}
@@ -143,12 +144,13 @@ export default function Collection(props) {
                   >
                     Link to image
                   </a>
+                  ) : "No image"}
                   <p>{product.productOnSale ? "true" : "false"}</p>
                   <p>{product.productDescription}</p>
                   <EditIcon className="collection__actionIcons" onClick={() => toggleEdit(index)}/>
                   <DeleteIcon className="collection__actionIcons" onClick={() => handleAlert(product._id)}/>
                   {product.editMode ? (
-                      <EditEntry currEndPoint={currEndPoint} key={product._id} id={product._id} currCollection={currCollection} setCurrCollection={setCurrCollection} productToEdit={productToEdit} />
+                      <EditEntry currEndPoint={currEndPoint} id={product._id} currCollection={currCollection} setCurrCollection={setCurrCollection} productToEdit={productToEdit} />
                   ) : null}
                 </React.Fragment>
                 ))}
