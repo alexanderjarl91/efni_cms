@@ -85,8 +85,8 @@ export default function EditEntry ({currCollection, setCurrCollection, currEndPo
                     <label>Product description</label>
                     <textarea name="productDescription" placeholder="Product description ..." value={updatedEntry.productDescription} onChange={handleChange}/> <br/>
                     <div className="editEntry__buttonContainer">  
-                        <button className="editEntry__formButtons" onClick={handleCancel}>Cancel</button>
-                        <button className="editEntry__formButtons" type='submit'>Update</button>
+                        <button className="formButtons" onClick={handleCancel}>Cancel</button>
+                        <button className="formButtons" type='submit'>Update</button>
                     </div>
                 </form>
             </div>

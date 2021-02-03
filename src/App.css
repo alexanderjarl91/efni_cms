@@ -1,14 +1,43 @@
 .App {
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
+}
+
+h1 {
+  color: #063852;
+}
+h4 {
+  color: #063852;
 }
 
 a {
   text-decoration: none;
-  color: white;
+  color: #F8F8F9;
   margin: 1rem;
 }
 
 .userNav:child {
   margin: 1rem;
 }
+
+/* Custom scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+

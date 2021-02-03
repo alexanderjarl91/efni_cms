@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import queryString from "query-string";
-import "./styles/collection.css";
 import NewEntry from "./NewEntry";
 import EditEntry from "./EditEntry";
 import { AuthContext, DataContext } from "../context";
@@ -10,6 +9,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import firebase from "firebase/app";
 import "firebase/auth";
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import "./styles/collection.css";
 
 export default function Collection(props) {
   const { user } = useContext(AuthContext);
@@ -141,10 +141,9 @@ export default function Collection(props) {
 
             <div className="collection__entryHeader">
               <h4>entries:</h4>
-              <button onClick={toggleAddMode}>add new entry</button>
+              <button className="formButtons" onClick={toggleAddMode}>add new entry</button>
             </div>
             
-          <div className="collection__listWrapper">
             <div className="collection__list">
               <h4>Name</h4>
               <h4>Price</h4>
@@ -178,7 +177,6 @@ export default function Collection(props) {
                 ))}
                 </div>
             </div>
-        </div>
         </>
       ) : (
         <div>No Access to this collection</div>

@@ -79,8 +79,8 @@ export default function NewEntry ({toggleAddMode, setCurrCollection, currEndPoin
                 <textarea name="productDescription" value={newEntry.productDescription} onChange={handleChange}/>
             <br/>
             <div className="newEntry__buttonContainer">  
-                <button className="newEntry__formButtons" onClick={handleCancel}>Cancel</button>
-                <button className="newEntry__formButtons" type='submit'>Save</button>
+                <button className="formButtons" onClick={handleCancel}>Cancel</button>
+                <button className="formButtons" type='submit'>Save</button>
             </div>
         </form>
         </div>
