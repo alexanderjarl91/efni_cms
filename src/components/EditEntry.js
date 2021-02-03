@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import './styles/editEntry.css'
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default function EditEntry ({currCollection, setCurrCollection, currEndPoint, productToEdit, id}) {
 
@@ -13,9 +15,10 @@ export default function EditEntry ({currCollection, setCurrCollection, currEndPo
     })
 
 
-    const updateEntryInDb = (id) => { 
+    const updateEntryInDb = async (id) => { 
+        const idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true);
         // Fetch from the api with POST method to add do database
-        fetch(`https://efni-api.herokuapp.com/${currEndPoint}/${id}`, { 
+        fetch(`https://efni-api.herokuapp.com//${currEndPoint}/${id}`, { 
           method: 'PATCH', 
           body: JSON.stringify({
               productName: updatedEntry.productName,
@@ -24,13 +27,17 @@ export default function EditEntry ({currCollection, setCurrCollection, currEndPo
               productOnSale: updatedEntry.productOnSale,
               productDescription: updatedEntry.productDescription
             }), 
-          headers: {'Content-Type': 'application/json'}})
+            headers: {'Content-Type': 'application/json', 'Authorization': idToken}})
         .then((r) => r.json())
         .then((data) => {
-            const currCollectionCopy = [...currCollection]
-            const productIndex = currCollectionCopy.findIndex((product) => data._id === product._id)
-            currCollectionCopy[productIndex] = data;
-            setCurrCollection(currCollectionCopy);
+            if(data.msg) {
+                return;
+            } else {
+                const currCollectionCopy = [...currCollection]
+                const productIndex = currCollectionCopy.findIndex((product) => data._id === product._id)
+                currCollectionCopy[productIndex] = data;
+                setCurrCollection(currCollectionCopy);
+            }
         }) 
         .catch((error) => console.error(error))
       }

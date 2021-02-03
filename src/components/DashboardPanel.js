@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext, DataContext } from "../context";
+import DocumentIcon from '@material-ui/icons/InsertDriveFile';
+import PersonIcon from '@material-ui/icons/Person';
 import "./styles/dashboard.css";
 
 export default function DashboardPanel() {
@@ -28,23 +31,25 @@ export default function DashboardPanel() {
   }, [currUser, collections]);
 
   const collectionList = userCollection.map((item, index) => (
-    <React.Fragment key={index}>
-      <div>{item.collection}</div>
-      <div>{item.documentCount}</div>
-      <div>3</div>
-    </React.Fragment>
+    <Link key={index} className="card__link" to={{pathname: "/collection", search: `?name=${item.collection}`}}>
+      <div className="collection__card">
+        <div className="card__title">{item.collection}</div>
+        <div className="card__document"><DocumentIcon className="document__icon"/>{item.documentCount}</div>
+        <div className="card__user"><PersonIcon className="user__icon"/>3</div>
+      </div>
+    </Link>
   ));
   return (
     <div>
       <h1>Welcome, {user.displayName}!</h1>
       <div>
-        <h4>Your collections:</h4>
+        <h4 className="dashboard__panel__title">Your collections:</h4>
 
         {/* collection titles */}
         <div className="dashboard__grid">
-          <h4>name</h4>
+          {/* <h4>name</h4>
           <h4># of entries</h4>
-          <h4># of editors</h4>
+          <h4># of editors</h4> */}
           {collectionList}
         </div>
       </div>

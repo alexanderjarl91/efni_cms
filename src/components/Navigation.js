@@ -44,7 +44,7 @@ export default function Navigation({ goToCollection }) {
             <Link className="navigation__link" to="/">Dashboard</Link>
             <Link className="navigation__link" to="/profile">Profile</Link>
             <div className="navigation__dropdown">
-              <Link onClick={handleShowCollections} className="navigation__link ">Collections</Link>
+              <p onClick={handleShowCollections} className="navigation__link ">Collections</p>
             
               {showCollections && currentUser? 
               <>
