@@ -41,6 +41,8 @@ nav {
 }
 
 .navbar__logo {
+  margin: auto;
+  width: 60%;
   margin-top: 1rem;
   margin-bottom: 1.5rem;
 }
