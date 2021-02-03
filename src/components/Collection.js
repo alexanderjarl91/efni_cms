@@ -7,8 +7,7 @@ import { AuthContext, DataContext } from "../context";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { confirmAlert } from 'react-confirm-alert'; 
-import 'react-confirm-alert/src/react-confirm-alert.css'; 
-
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 export default function Collection(props) {
   const { user } = useContext(AuthContext);
@@ -17,7 +16,7 @@ export default function Collection(props) {
   const [currEndPoint, setCurrEndPoint] = useState("");
   const [currCollection, setCurrCollection] = useState([]);
   const [productToEdit, setProductToEdit] = useState([]);
-  const [allowAccess, setAllowAccess] = useState([false]);
+  const [allowAccess, setAllowAccess] = useState(false);
 
   useEffect(() => {
      console.log('collection component rerenderd')
