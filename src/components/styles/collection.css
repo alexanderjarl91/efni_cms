@@ -1,16 +1,38 @@
 .collection__entryHeader {
   display: flex;
-  width: 85%;
+  width: 100%;
   margin: 20px 0px;
   justify-content: space-between;
 }
 
+.collection__listWrapper {
+  width: 85%;
+  padding: .5rem 2rem;
+  margin-top: .8rem;
+  border-radius: 10px;
+  box-shadow: 2px 4px 5px #05293D;
+
+}
+
+.collection__listHeaders {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 2fr 1fr 2fr 1fr 3fr .5fr .5fr;
+  margin: 15px 0px;
+  align-items: center;
+  padding: 5px 0px;
+  border-bottom: 2px solid #063852;
+}
 
 .collection__list {
   display: grid;
-  width: 85%;
+  width: 100%;
   grid-template-columns: 2fr 1fr 2fr 1fr 3fr .5fr .5fr;
-  gap: 5px;
+  gap: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 15px 0px;
+  align-items: center;
+  padding: 5px 0px;
 }
 
 .collection__imageLink {
@@ -20,8 +42,9 @@
 
 .collection__actionIcons {
   cursor: pointer;
+  /* color: #C5CCCF; */
   color: #063852;
-  justify-self: end
+  justify-self: end;
 }
 
 .formButtons {

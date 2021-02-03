@@ -138,45 +138,45 @@ export default function Collection(props) {
         ) : null}
         <div>
             <h1>{currEndPoint}</h1>
+            <div className="collection__listWrapper">
+              <div className="collection__entryHeader">
+                <h4>entries:</h4>
+                <button className="formButtons" onClick={toggleAddMode}>add new entry</button>
+              </div>
+              <div className="collection__listHeaders">
+                <h4>Name</h4>
+                <h4>Price</h4>
+                <h4>Image</h4>
+                <h4>On sale?</h4>
+                <h4>Description</h4>
+                <h4></h4>
+                <h4></h4>
+              </div>
 
-            <div className="collection__entryHeader">
-              <h4>entries:</h4>
-              <button className="formButtons" onClick={toggleAddMode}>add new entry</button>
-            </div>
-            
-            <div className="collection__list">
-              <h4>Name</h4>
-              <h4>Price</h4>
-              <h4>Image</h4>
-              <h4>On sale?</h4>
-              <h4>Description</h4>
-              <h4></h4>
-              <h4></h4>
-
-              {currCollection.map((product, index) => (
-                <React.Fragment key={product._id}>
-                  <p>{product.productName}</p>
-                  <p>{product.productPrice}</p>
-                  {product.productImg ? (
-                  <a
-                    className="collection__imageLink"
-                    href={product.productImg}
-                    target="blank"
-                  >
-                    Link to image
-                  </a>
-                  ) : "No image"}
-                  <p>{product.productOnSale ? "true" : "false"}</p>
-                  <p>{product.productDescription}</p>
-                  <EditIcon className="collection__actionIcons" onClick={() => toggleEdit(index)}/>
-                  <DeleteIcon className="collection__actionIcons" onClick={() => handleAlert(product._id)}/>
-                  {product.editMode ? (
-                      <EditEntry currEndPoint={currEndPoint} id={product._id} currCollection={currCollection} setCurrCollection={setCurrCollection} productToEdit={productToEdit} />
-                  ) : null}
-                </React.Fragment>
-                ))}
+                {currCollection.map((product, index) => (
+                  <div className="collection__list" key={product._id}>
+                    <p>{product.productName}</p>
+                    <p>{product.productPrice}</p>
+                    {product.productImg ? (
+                    <a
+                      className="collection__imageLink"
+                      href={product.productImg}
+                      target="blank"
+                    >
+                      Link to image
+                    </a>
+                    ) : "No image"}
+                    <p>{product.productOnSale ? "true" : "false"}</p>
+                    <p>{product.productDescription}</p>
+                    <EditIcon className="collection__actionIcons" onClick={() => toggleEdit(index)}/>
+                    <DeleteIcon className="collection__actionIcons" onClick={() => handleAlert(product._id)}/>
+                    {product.editMode ? (
+                        <EditEntry currEndPoint={currEndPoint} id={product._id} currCollection={currCollection} setCurrCollection={setCurrCollection} productToEdit={productToEdit} />
+                    ) : null}
+                  </div>
+                  ))}
+                  </div>
                 </div>
-            </div>
         </>
       ) : (
         <div>No Access to this collection</div>
