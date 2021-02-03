@@ -42,6 +42,10 @@ input {
     padding: 5px 10px;
 }
 
+.editEntry__checkbox {
+    cursor: pointer;
+}
+
 textarea {
     padding: 5px 10px;
     min-height: 80px;

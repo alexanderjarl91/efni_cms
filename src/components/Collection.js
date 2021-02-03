@@ -123,8 +123,8 @@ export default function Collection(props) {
               <button onClick={toggleAddMode}>add new entry</button>
             </div>
             
-          <div>
-            <div className="collection__titles">
+          <div className="collection__listWrapper">
+            <div className="collection__list">
               <h4>Name</h4>
               <h4>Price</h4>
               <h4>Image</h4>

@@ -61,7 +61,7 @@ export default function NewEntry ({toggleAddMode, setCurrCollection, currEndPoin
                 <input type="url" name="productImg" value={newEntry.productImg} onChange={handleChange}/>
             <br/>
             <label>On sale?</label>
-                <input type="checkbox" name="productOnSale" checked={newEntry.productOnSale} onChange={handleChange}/>
+                <input className="newEntry__checkbox" type="checkbox" name="productOnSale" checked={newEntry.productOnSale} onChange={handleChange}/>
             <br/>
             <label>Product description</label>
                 <textarea name="productDescription" value={newEntry.productDescription} onChange={handleChange}/>

@@ -47,6 +47,10 @@ textarea {
     min-height: 80px;
 } */
 
+.newEntry__checkbox {
+    cursor: pointer;
+}
+
 .newEntry__buttonContainer{
     align-self: flex-end;
 }

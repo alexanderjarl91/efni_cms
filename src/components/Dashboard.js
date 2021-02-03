@@ -20,7 +20,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div style={{ display: "flex", backgroundColor: "#F0F0F0" }}>
+    <div className="dashboard__appWrapper">
       <Navigation setTitle={setTitle} />
       <div className="container">
         <Header />

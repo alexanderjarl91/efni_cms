@@ -74,7 +74,7 @@ export default function EditEntry ({currCollection, setCurrCollection, currEndPo
                     <label>Product image url</label>
                     <input type="url" name="productImg" placeholder="Product image url ..." value={updatedEntry.productImg} onChange={handleChange}/> <br/>
                     <label>On sale?</label>
-                    <input type="checkbox" name="productOnSale" checked={updatedEntry.productOnSale} onChange={handleChange}/> <br/>
+                    <input className="editEntry__checkbox" type="checkbox" name="productOnSale" checked={updatedEntry.productOnSale} onChange={handleChange}/> <br/>
                     <label>Product description</label>
                     <textarea name="productDescription" placeholder="Product description ..." value={updatedEntry.productDescription} onChange={handleChange}/> <br/>
                     <div className="editEntry__buttonContainer">  

@@ -32,7 +32,6 @@ export default function DashboardPanel() {
       <div>{item.collection}</div>
       <div>{item.documentCount}</div>
       <div>3</div>
-      <button>edit</button>
     </React.Fragment>
   ));
   return (
@@ -46,7 +45,6 @@ export default function DashboardPanel() {
           <h4>name</h4>
           <h4># of entries</h4>
           <h4># of editors</h4>
-          <h4></h4>
           {collectionList}
         </div>
       </div>
