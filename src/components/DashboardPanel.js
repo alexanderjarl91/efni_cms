@@ -54,6 +54,7 @@ export default function DashboardPanel() {
       </div>
     </Link>
   ));
+
   return (
     <div>
       <h1>Welcome, {user.displayName}!</h1>

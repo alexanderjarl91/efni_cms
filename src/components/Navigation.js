@@ -57,10 +57,7 @@ export default function Navigation({ goToCollection, setTitle }) {
                 Profile
               </Link>
               <div className="navigation__dropdown">
-                <p
-                  onClick={handleShowCollections}
-                  className="navigation__link "
-                >
+                <p onClick={handleShowCollections} className="navigation__link">
                   Collections
                 </p>
 
@@ -111,7 +108,7 @@ export default function Navigation({ goToCollection, setTitle }) {
                             className="navigation__link"
                             to="/users"
                           >
-                            <p>Users</p>
+                            <p className="navigation__adminSublink">Users</p>
                           </Link>
                         </div>
                       ) : null}
