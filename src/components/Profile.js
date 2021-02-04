@@ -10,40 +10,40 @@ export default function Profile() {
     setEditMode(!editMode);
   };
 
-  const logUser = () => {
-    console.log(user);
-  };
-
   return (
     <>
       {editMode ? (
         //in edit mode
-        <div>
-          <img alt="" className="profile__avatar" src={user.photoURL} />
+      <div className="profile__editFormOverlay">
+        <div className="profile__editForm">
+          <img alt="" className="profile__avatar" src={user.photoURL} /><br/>
           <div>
             <h4>Name</h4>
             <input type="text" placeholder={user.displayName} />
           </div>
+          <br/>
           <div>
             <h4>E-mail</h4>
             <input type="email" placeholder={user.email} />
           </div>
+          <br/>
           <div>
             <h4>Image URL</h4>
             <input type="text" placeholder={user.photoURL} />
           </div>
-          <div>
-            <button onClick={editProfile}>cancel</button>
-            <button onClick={editProfile}>update profile</button>
+          <br/>
+          <div className="profile__editButtons">
+            <button className="formButtons" onClick={editProfile}>Cancel</button>
+            <button className="formButtons" onClick={editProfile}>Save</button>
           </div>
         </div>
+      </div>
       ) : (
         //normal mode
         <div className="profile__container">
           <img alt="" className="profile__avatar" src={user.photoURL} />
           <h1>{user.displayName}</h1>
-          <button onClick={editProfile}>edit profile</button>
-          <button onClick={logUser}>console log user</button>
+          <button className="formButtons" onClick={editProfile}>Edit profile</button>
         </div>
       )}
     </>

@@ -1,7 +1,50 @@
 .profile__container {
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
+
 .profile__avatar {
   width: 20%;
+  margin-bottom: .5rem;
+}
+
+.profile__editFormOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: forms-fade-in 0.5s 0.2s forwards; 
+}
+
+.profile__editForm {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  padding: 30px;
+  text-align: left;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 20px 75px rgba(0, 0, 0, 0.13);
+  color: #666; 
+}
+
+.profile__editForm h4 {
+  margin-bottom: 5px;
+}
+
+.profile__editForm input {
+  width: 100%;
+}
+
+.profile__editButtons {
+  display: flex;
+  justify-content: flex-end;
 }

@@ -89,22 +89,11 @@ function App() {
       });
   };
 
-  // //logout function
-  // const handleLogout = () => {
-  //   firebase.auth().signOut();
-  // };
-
-  // const logUser = () => {
-  //   console.log(user);
-  // };
-
   return (
     <div className="App">
       {user ? (
         <>
           <Dashboard />
-          {/* <button onClick={handleLogout}>log out</button> */}
-          {/* <button onClick={logUser}>console log user</button> */}
         </>
       ) : (
         <Login2

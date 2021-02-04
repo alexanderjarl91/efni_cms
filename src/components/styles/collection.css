@@ -6,7 +6,8 @@
 }
 
 .collection__listWrapper {
-  width: 85%;
+  width: 100%;
+  max-width: 1700px;
   padding: .5rem 2rem;
   margin-top: .8rem;
   border: 1px solid  rgba(0, 0, 0, 0.1);;
@@ -42,7 +43,6 @@
 
 .collection__actionIcons {
   cursor: pointer;
-  /* color: #C5CCCF; */
   color: #063852;
   justify-self: end;
 }

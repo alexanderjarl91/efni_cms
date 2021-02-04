@@ -54,10 +54,6 @@
   cursor: pointer;
 }
 
-p {
-  text-transform: capitalize;
-}
-
 .editmode__container {
   background: rgba(38, 55, 116, 0.1);
   height: 15vh;
