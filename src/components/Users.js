@@ -1,17 +1,20 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./styles/users.css";
-import { DataContext } from "../context";
+import { AuthContext, DataContext } from "../context";
 import { db } from "../firebase";
+import { Button } from "@material-ui/core";
 
-import { Button } from '@material-ui/core';
-
-const CryptoJS = require('crypto-js');
+const CryptoJS = require("crypto-js");
 
 export default function Users() {
   const { collections, userData, setUserData } = useContext(DataContext);
   const [selectedDatabase, setSelectedDatabase] = useState("");
   const [users, setUsers] = useState([]);
+  const { user } = useContext(AuthContext);
   const [role, setRole] = useState("");
+
+  //match user databases
+  const currentUser = userData.find((x) => x.email === user.email);
 
   useEffect(() => {
     setUsers(userData);
@@ -73,15 +76,11 @@ export default function Users() {
     console.log(role);
   };
 
-  const gaur = "nonni"
-
-  //API KEY GENERATION
-
-
-
- 
-
   return (
+    <>
+    {currentUser && currentUser.role && currentUser.role === "admin" ? (
+
+    
     <div className="users__comp">
       {/* TABLE TITLES */}
       <div className="users__header">
@@ -113,9 +112,7 @@ export default function Users() {
               </div>
               {user.editUser ? (
                 <div className="editmode__container">
-                  
                   <div className="users__editMode">
-                    
                     <div>
                       <h3 className="users__editModeTitle">User role</h3>
 
@@ -151,24 +148,54 @@ export default function Users() {
                         </div>
                       ))}
                     </div>
-                    
-                    </div>
+                  </div>
 
-                    {/* EDITMODE FOOTER */}
-                    <div className="editMode__footer">
-                      <div style={{display:"flex", flexDirection:"column", alignItems: "center", margin: "0 auto"}}> 
-                        <div style={{display: "flex", flexDirection: "column", textAlign:"center"}}>
-                          <label htmlFor="">Your API key</label>
-                          <input type="text" value="API KEY" readOnly/>
-                          <Button style={{background: "#FFFFFF", boxShadow:"0px 4px 4px rgba(0,0,0,0.25", borderRadius: "10px", marginBottom:"2rem", marginTop:"5px"}}>generate api key</Button>
-                        </div>
-                        <Button style={{background: "#FFFFFF", boxShadow:"0px 4px 4px rgba(0,0,0,0.25", borderRadius: "10px"}}
-                          onClick={() => {
-                            updateUser(user.email, index);
-                            toggleEdit(index);
-                          }}>Update User</Button>
-                          </div>
+                  {/* EDITMODE FOOTER */}
+                  <div className="editMode__footer">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        margin: "0 auto",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          textAlign: "center",
+                        }}
+                      >
+                        <label htmlFor="">Your API key</label>
+                        <input type="text" value="API KEY" readOnly />
+                        <Button
+                          style={{
+                            background: "#FFFFFF",
+                            boxShadow: "0px 4px 4px rgba(0,0,0,0.25",
+                            borderRadius: "10px",
+                            marginBottom: "2rem",
+                            marginTop: "5px",
+                          }}
+                        >
+                          generate api key
+                        </Button>
+                      </div>
+                      <Button
+                        style={{
+                          background: "#FFFFFF",
+                          boxShadow: "0px 4px 4px rgba(0,0,0,0.25",
+                          borderRadius: "10px",
+                        }}
+                        onClick={() => {
+                          updateUser(user.email, index);
+                          toggleEdit(index);
+                        }}
+                      >
+                        Update User
+                      </Button>
                     </div>
+                  </div>
                 </div>
               ) : null}
             </div>
@@ -178,5 +205,7 @@ export default function Users() {
         <p>loading users..</p>
       )}
     </div>
+    ) : <h1> 401 - NO ACCESS</h1> }
+    </>
   );
 }

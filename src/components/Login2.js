@@ -34,6 +34,7 @@ export default function Login({
           {/* <h1>Sign up</h1> */}
           <p className="loginText">Sign up</p>
           <TextField
+            style={{ color: "white" }}
             id="outlined-basic"
             autoFocus
             required
