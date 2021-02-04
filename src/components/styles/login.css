@@ -1,0 +1,27 @@
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 12rem auto;
+  background-color: white;
+  padding: 30px 50px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  text-align: center;
+  background: rgba(38, 55, 116, 0.07);
+}
+
+.loginText {
+  margin-top: 2rem;
+  font-weight: 400;
+  font-size: 20px;
+
+  color: #263774;
+}
+
+.footerText {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  margin-top: 2rem;
+  padding: 0px 50px;
+}
