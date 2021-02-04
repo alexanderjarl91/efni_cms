@@ -19,10 +19,12 @@ Material UI
 Query String
 
 ## Main Features
-Sign up / log in using Firebase Authentication
-Custom claims for each user using Firestore
-User interface for CRUD operations
-Admin panel with a list of all users and role/access assignment
+* Sign up / log in using Firebase Authentication
+* Custom claims for each user using Firestore
+* Dashboard featuring accessable collections
+* User interface for CRUD operations
+* Profile page to set/update profile picture
+* Admin panel with a list of all users and role/access assignment
 
 
 
