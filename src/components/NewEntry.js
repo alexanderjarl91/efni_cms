@@ -32,7 +32,6 @@ export default function NewEntry ({toggleAddMode, setCurrCollection, currEndPoin
             headers: {'Content-Type': 'application/json', 'Authorization': idToken}})
             const data = await r.json();
             // Setting the data to state and using concat to add to it
-            console.log('data before set: ', data);
             if(data.msg) {
                 return;
             } else {

@@ -40,6 +40,7 @@
   cursor: default;
   transition: all 0.1s ease-in;
   background-color: white;
+  cursor: pointer;
 }
 
 .card__link {
