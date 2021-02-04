@@ -16,7 +16,7 @@ export default function Profile() {
         //in edit mode
       <div className="profile__editFormOverlay">
         <div className="profile__editForm">
-          <img alt="" className="profile__avatar" src={user.photoURL} /><br/>
+          <img alt="" className="profile__editAvatar" src={user.photoURL} /><br/>
           <div>
             <h4>Name</h4>
             <input type="text" placeholder={user.displayName} />

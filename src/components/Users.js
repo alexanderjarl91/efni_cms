@@ -148,40 +148,7 @@ export default function Users() {
                         </div>
                       ))}
                     </div>
-                  </div>
-
-                  {/* EDITMODE FOOTER */}
-                  <div className="editMode__footer">
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        margin: "0 auto",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          textAlign: "center",
-                        }}
-                      >
-                        <label htmlFor="">Your API key</label>
-                        <input type="text" value="API KEY" readOnly />
-                        <Button
-                          style={{
-                            background: "#FFFFFF",
-                            boxShadow: "0px 4px 4px rgba(0,0,0,0.25",
-                            borderRadius: "10px",
-                            marginBottom: "2rem",
-                            marginTop: "5px",
-                          }}
-                        >
-                          generate api key
-                        </Button>
-                      </div>
-                      <Button
+                  <Button
                         style={{
                           background: "#FFFFFF",
                           boxShadow: "0px 4px 4px rgba(0,0,0,0.25",
@@ -194,7 +161,6 @@ export default function Users() {
                       >
                         Update User
                       </Button>
-                    </div>
                   </div>
                 </div>
               ) : null}
