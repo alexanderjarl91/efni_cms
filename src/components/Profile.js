@@ -41,9 +41,11 @@ export default function Profile() {
       ) : (
         //normal mode
         <div className="profile__container">
-          <img alt="" className="profile__avatar" src={user.photoURL} />
-          <h1>{user.displayName}</h1>
-          <button className="formButtons" onClick={editProfile}>Edit profile</button>
+          <div className="profile__items">
+            <img alt="" className="profile__avatar" src={user.photoURL} />
+            <h1>{user.displayName}</h1>
+            <button className="formButtons" onClick={editProfile}>Edit profile</button>
+          </div>
         </div>
       )}
     </>
