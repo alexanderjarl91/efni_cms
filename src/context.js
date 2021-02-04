@@ -62,7 +62,6 @@ export const DataProvider = ({ children }) => {
         );
         const data = await response.json();
         setCollections(data);
-        console.log(data);
       } catch (err) {
         console.log(err);
       }

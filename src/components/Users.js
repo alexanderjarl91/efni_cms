@@ -4,8 +4,6 @@ import { AuthContext, DataContext } from "../context";
 import { db } from "../firebase";
 import { Button, Avatar } from "@material-ui/core";
 
-const CryptoJS = require("crypto-js");
-
 export default function Users() {
   const { collections, userData, setUserData } = useContext(DataContext);
   const [selectedDatabase, setSelectedDatabase] = useState("");
@@ -91,8 +89,9 @@ export default function Users() {
           {/* DISPLAY USER DATA */}
           {users.length > 0 ? (
             <div>
+              
               {users.map((user, index) => (
-                <div key={user.email}>
+                <div key={user.useruid}>
                   <div
                     onClick={(e) => {
                       toggleEdit(index);
@@ -100,14 +99,30 @@ export default function Users() {
                     className="user__data"
                     key={user.email}
                   >
-                    <p>
-                      <Avatar src={user.photoURL} />
-                      {user.name}
-                    </p>
+                    <div
+                      style={{ display: "flex", alignItems: "center" }}
+                      key={index}
+                    >
+                      <Avatar
+                        style={{
+                          margin: "1rem",
+                          width: "30px",
+                          height: "30px",
+                        }}
+                        src={user.photoURL}
+                      />
+                      <p>{user.name}</p>
+                    </div>
                     <p>{user.email}</p>
                     {user.role === "admin" ? <p>{user.role}</p> : <p>Editor</p>}
 
-                    {user.access ? <p>{user.access}</p> : <p>No access</p>}
+                    {user.access ? (
+                      <p style={{ textTransform: "capitalize" }}>
+                        {user.access.toString()}
+                      </p>
+                    ) : (
+                      <p>No access</p>
+                    )}
 
                     {/* EDITMODE */}
                   </div>

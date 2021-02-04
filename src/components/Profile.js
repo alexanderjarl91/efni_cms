@@ -1,21 +1,29 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./styles/profile.css";
-import { AuthContext } from "../context";
-import { SentimentSatisfied } from "@material-ui/icons";
+import { AuthContext, DataContext } from "../context";
+import Avatar from "@material-ui/core/Avatar";
+import { db } from "../firebase";
 
 export default function Profile() {
   const { user } = useContext(AuthContext);
+  const { userData, setUserData } = useContext(DataContext);
   const [editMode, setEditMode] = useState(false);
   const [image, setImage] = useState(user.photoURL);
-  const [state, setState] = useState();
+  const [state, setState] = useState("");
+
+  const currentUser = userData.find((x) => x.email === user.email);
 
   const editProfile = () => {
     setEditMode(!editMode);
   };
-  console.log(user.photoURL);
 
-  // set userProfile's photoURL to the imageURL state
   const uploadImage = () => {
+    console.log(currentUser.email);
+
+    const photoRef = db.collection("users").doc(currentUser.email);
+
+    photoRef.update({ photoURL: image });
+
     user
       .updateProfile({
         photoURL: image,
@@ -31,7 +39,7 @@ export default function Profile() {
         //in edit mode
         <div className="profile__editFormOverlay">
           <div className="profile__editForm">
-            <img alt="" className="profile__avatar" src={user.photoURL} />
+            <Avatar alt="" className="profile__avatar" src={user.photoURL} />
             <br />
 
             <p>{user.displayName}</p>
@@ -67,7 +75,9 @@ export default function Profile() {
         //normal mode
         <div className="profile__container">
           <div className="profile__items">
-            <img alt="" className="profile__avatar" src={user.photoURL} />
+            {currentUser ? (
+              <img alt="" className="profile__avatar" src={user.photoURL} />
+            ) : null}
             <h1>{user.displayName}</h1>
             <button className="formButtons" onClick={editProfile}>
               Edit profile

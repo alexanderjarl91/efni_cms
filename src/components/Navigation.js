@@ -81,12 +81,10 @@ export default function Navigation({ goToCollection, setTitle }) {
                         </div>
                       ))
                     ) : (
-                      <p>no access</p>
+                      <p style={{ color: "white" }}>No Access</p>
                     )}
                   </>
-                ) : (
-                  console.log("not showing")
-                )}
+                ) : null}
               </div>
 
               {currentUser ? (
