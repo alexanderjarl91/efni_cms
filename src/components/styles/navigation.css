@@ -54,6 +54,10 @@ nav {
   flex-direction: column;
 }
 
+.navigation__items > * {
+  margin: 10px;
+}
+
 .navigation__link {
   font-style: normal;
   font-weight: normal;
@@ -61,6 +65,7 @@ nav {
   line-height: 21px;
   color: #f8f8f9;
 }
+
 .navigation__link:hover {
   cursor: pointer;
 }
@@ -89,16 +94,10 @@ nav {
 .navigation__dropdown {
   /* background-color: #063852;
   box-shadow: 5px 5px 5px #05293d; */
-  padding: 20px;
+  /* padding: 20px; */
   cursor: default;
 }
 
 .navigation__dropdown > * {
   margin-bottom: 20px;
-}
-
-.navigation__adminDropdown {
-  /* background-color: #063852; */
-  /* box-shadow: 5px 5px 5px #05293d; */
-  padding: 20px;
 }

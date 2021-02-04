@@ -41,8 +41,8 @@ export default function Header() {
           <Avatar src={user.photoURL} style={{ marginRight: "8px" }} />
           <div className="header__userName">
             <p>{user.displayName}</p>
-            <p style={{ opacity: "0.5", fontSize: "8px" }}>
-              , {currentUserRole}
+            <p style={{ opacity: "0.5", fontSize: "14px" }}>
+              {currentUserRole}
             </p>
           </div>
         </Link>

@@ -33,7 +33,14 @@ export default function Navigation({ goToCollection, setTitle }) {
         <div className="navbar">
           <nav>
             <div className="navbar__header">
-              <img className="navbar__logo" src={matterLogo} alt="logo" />
+              <Link
+                onClick={() => {
+                  setTitle("/dashboard");
+                }}
+                to="/"
+              >
+                <img className="navbar__logo" src={matterLogo} alt="logo" />
+              </Link>
               <span className="navbar__line"></span>
             </div>
 
