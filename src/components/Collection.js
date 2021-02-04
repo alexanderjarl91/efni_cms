@@ -5,15 +5,17 @@ import EditEntry from "./EditEntry";
 import { AuthContext, DataContext } from "../context";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import { confirmAlert } from 'react-confirm-alert'; 
+import { confirmAlert } from "react-confirm-alert";
 import firebase from "firebase/app";
 import "firebase/auth";
-import 'react-confirm-alert/src/react-confirm-alert.css';
+import "react-confirm-alert/src/react-confirm-alert.css";
 import "./styles/collection.css";
 
 export default function Collection(props) {
   const { user } = useContext(AuthContext);
-  const { userData, refreshCollections, setRefreshCollections } = useContext(DataContext);
+  const { userData, refreshCollections, setRefreshCollections } = useContext(
+    DataContext
+  );
   const [addMode, setAddMode] = useState(false);
   const [currEndPoint, setCurrEndPoint] = useState("");
   const [currCollection, setCurrCollection] = useState([]);
@@ -21,8 +23,8 @@ export default function Collection(props) {
   const [allowAccess, setAllowAccess] = useState(true);
 
   useEffect(() => {
-     console.log('collection component rerenderd')
-  }, [currCollection])
+    console.log("collection component rerenderd");
+  }, [currCollection]);
 
   useEffect(() => {
     const collectionQs = queryString.parse(window.location.search);
@@ -55,24 +57,33 @@ export default function Collection(props) {
     setAddMode(!addMode);
   };
 
-
   // Handle when delete button is clicked
   const handleDelete = async (id) => {
-    const idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true);
+    const idToken = await firebase
+      .auth()
+      .currentUser.getIdToken(/* forceRefresh */ true);
 
     try {
-      const r = await fetch(`https://efni-api.herokuapp.com/${currEndPoint}/${id}`, {
-        method: "DELETE",
-        headers: {'Content-Type': 'application/json', 'Authorization': idToken}
-      });
+      const r = await fetch(
+        `https://efni-api.herokuapp.com/${currEndPoint}/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: idToken,
+          },
+        }
+      );
       const data = await r.json();
-      if(data.msg) {
+      if (data.msg) {
         return;
       } else {
         setRefreshCollections(!refreshCollections);
-        setCurrCollection(currCollection.filter((product) => id !== product._id));
+        setCurrCollection(
+          currCollection.filter((product) => id !== product._id)
+        );
       }
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
     // Fetch from the api with DELETE method to delete from database
@@ -81,22 +92,20 @@ export default function Collection(props) {
     //   .then((r) => {
     //     const data = r.json()
     //     console.log('data is: ', data);
-        
+
     //   })
     //   // Filtering and finding the object to remove from id
     //     console.log('R is: ', data);
-        // setCurrCollection(
-        // currCollection.filter((product) => id !== product._id)
-      
-        
+    // setCurrCollection(
+    // currCollection.filter((product) => id !== product._id)
+
     //   )
     //   .catch((error) => console.error(error));
   };
-  
 
   const toggleEdit = (index) => {
     const currCollectionCopy = [...currCollection];
-    setProductToEdit('')
+    setProductToEdit("");
     if (currCollectionCopy[index].editMode !== true) {
       currCollectionCopy.forEach((product) => {
         product.editMode = false;
@@ -110,35 +119,40 @@ export default function Collection(props) {
   // Confirm alert using react-confirm-alert module
   const handleAlert = (id) => {
     confirmAlert({
-        title: 'Delete product!',
-        message: 'Are you sure?',
-        buttons: [
-          {
-            label: 'Yes',
-            onClick: () => handleDelete(id)
-          },
-          {
-            label: 'No',
-            onClick: () => handleAlert()
-          }
-        ]  
-      });
-  }
-
+      title: "Delete product!",
+      message: "Are you sure?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => handleDelete(id),
+        },
+        {
+          label: "No",
+          onClick: () => handleAlert(),
+        },
+      ],
+    });
+  };
 
   return (
     <>
       {allowAccess ? (
         <>
-        {addMode ? (
-          <NewEntry setCurrCollection={setCurrCollection} currEndPoint={currEndPoint} toggleAddMode={toggleAddMode} />
-        ) : null}
-        <div>
-            <h1>{currEndPoint}</h1>
+          {addMode ? (
+            <NewEntry
+              setCurrCollection={setCurrCollection}
+              currEndPoint={currEndPoint}
+              toggleAddMode={toggleAddMode}
+            />
+          ) : null}
+          <div>
+            {/* <h1>{currEndPoint}</h1> */}
             <div className="collection__listWrapper">
               <div className="collection__entryHeader">
                 <h4>entries:</h4>
-                <button className="formButtons" onClick={toggleAddMode}>add new entry</button>
+                <button className="formButtons" onClick={toggleAddMode}>
+                  add new entry
+                </button>
               </div>
               <div className="collection__listHeaders">
                 <h4>Name</h4>
@@ -150,11 +164,11 @@ export default function Collection(props) {
                 <h4></h4>
               </div>
 
-                {currCollection.map((product, index) => (
-                  <div className="collection__list" key={product._id}>
-                    <p>{product.productName}</p>
-                    <p>{product.productPrice}</p>
-                    {product.productImg ? (
+              {currCollection.map((product, index) => (
+                <div className="collection__list" key={product._id}>
+                  <p>{product.productName}</p>
+                  <p>{product.productPrice}</p>
+                  {product.productImg ? (
                     <a
                       className="collection__imageLink"
                       href={product.productImg}
@@ -162,20 +176,36 @@ export default function Collection(props) {
                     >
                       Link to image
                     </a>
-                    ) : "No image"}
-                    <p>{product.productOnSale ? "true" : "false"}</p>
-                    <p>{product.productDescription.length > 50 ?
-                      `${product.productDescription.substring(0, 50)} ...`
-                      : product.productDescription}</p>
-                    <EditIcon className="collection__actionIcons" onClick={() => toggleEdit(index)}/>
-                    <DeleteIcon className="collection__actionIcons" onClick={() => handleAlert(product._id)}/>
-                    {product.editMode ? (
-                        <EditEntry currEndPoint={currEndPoint} id={product._id} currCollection={currCollection} setCurrCollection={setCurrCollection} productToEdit={productToEdit} />
-                    ) : null}
-                  </div>
-                  ))}
-                  </div>
+                  ) : (
+                    "No image"
+                  )}
+                  <p>{product.productOnSale ? "true" : "false"}</p>
+                  <p>
+                    {product.productDescription.length > 50
+                      ? `${product.productDescription.substring(0, 50)} ...`
+                      : product.productDescription}
+                  </p>
+                  <EditIcon
+                    className="collection__actionIcons"
+                    onClick={() => toggleEdit(index)}
+                  />
+                  <DeleteIcon
+                    className="collection__actionIcons"
+                    onClick={() => handleAlert(product._id)}
+                  />
+                  {product.editMode ? (
+                    <EditEntry
+                      currEndPoint={currEndPoint}
+                      id={product._id}
+                      currCollection={currCollection}
+                      setCurrCollection={setCurrCollection}
+                      productToEdit={productToEdit}
+                    />
+                  ) : null}
                 </div>
+              ))}
+            </div>
+          </div>
         </>
       ) : (
         <div>No Access to this collection</div>

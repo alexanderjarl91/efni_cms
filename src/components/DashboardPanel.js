@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext, DataContext } from "../context";
-import DocumentIcon from '@material-ui/icons/InsertDriveFile';
-import PersonIcon from '@material-ui/icons/Person';
+import DocumentIcon from "@material-ui/icons/InsertDriveFile";
+import PersonIcon from "@material-ui/icons/Person";
 import "./styles/dashboard.css";
 
 export default function DashboardPanel() {
@@ -12,8 +12,8 @@ export default function DashboardPanel() {
   const [userCollection, setUserCollection] = useState([]);
 
   useEffect(() => {
-    console.log('Dashboardpanel rendering');
-  }, [])
+    console.log("Dashboardpanel rendering");
+  }, []);
 
   useEffect(() => {
     const foundUser = userData.find((x) => x.email === user.email);
@@ -25,9 +25,10 @@ export default function DashboardPanel() {
   }, [userData]);
 
   useEffect(() => {
-    if (currUser !== undefined) {
-      console.log('Filtering')
+    if (currUser !== undefined && currUser.access) {
+      console.log("Filtering");
       // Get all the collection object that the user should have access to
+
       const filtered = collections.filter((item) =>
         currUser.access.includes(item.collection)
       );
@@ -36,11 +37,20 @@ export default function DashboardPanel() {
   }, [currUser, collections]);
 
   const collectionList = userCollection.map((item, index) => (
-    <Link key={index} className="card__link" to={{pathname: "/collection", search: `?name=${item.collection}`}}>
+    <Link
+      key={index}
+      className="card__link"
+      to={{ pathname: "/collection", search: `?name=${item.collection}` }}
+    >
       <div className="collection__card">
         <div className="card__title">{item.collection}</div>
-        <div className="card__document"><DocumentIcon className="document__icon"/>{item.documentCount}</div>
-        <div className="card__user"><PersonIcon className="user__icon"/>3</div>
+        <div className="card__document">
+          <DocumentIcon className="document__icon" />
+          {item.documentCount}
+        </div>
+        <div className="card__user">
+          <PersonIcon className="user__icon" />3
+        </div>
       </div>
     </Link>
   ));
