@@ -9,14 +9,13 @@ https://efni-cms.netlify.com/
 
 ## Dependencies
 
-React
-React Router
-React Confirm Alert
-Reac
-Firebase
-Firebase Admin SDK
-Material UI
-Query String
+- React
+- React Router
+- React Confirm Alert
+- Firebase
+- Firebase Admin SDK
+- Material UI
+- Query String
 
 ## Main Features
 * Sign up / log in using Firebase Authentication
