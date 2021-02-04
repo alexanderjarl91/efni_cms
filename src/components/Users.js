@@ -155,7 +155,7 @@ export default function Users() {
                     </div>
 
                     {/* EDITMODE FOOTER */}
-                    <div classname="editMode__footer">
+                    <div className="editMode__footer">
                       <div style={{display:"flex", flexDirection:"column", alignItems: "center", margin: "0 auto"}}> 
                         <div style={{display: "flex", flexDirection: "column", textAlign:"center"}}>
                           <label htmlFor="">Your API key</label>

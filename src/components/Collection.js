@@ -69,11 +69,7 @@ export default function Collection(props) {
       )
       .catch((error) => console.error(error));
   };
-
-  // TODO / Checkout
-  // Gera submit on enter
   
- 
 
   const toggleEdit = (index) => {
     const currCollectionCopy = [...currCollection];

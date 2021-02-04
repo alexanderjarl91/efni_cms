@@ -33,6 +33,7 @@
   margin: 15px 0px;
   align-items: center;
   padding: 5px 0px;
+  overflow: hidden;
 }
 
 .collection__imageLink {
