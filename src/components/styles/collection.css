@@ -9,15 +9,16 @@
   width: 85%;
   padding: .5rem 2rem;
   margin-top: .8rem;
+  border: 1px solid  rgba(0, 0, 0, 0.1);;
   border-radius: 10px;
-  box-shadow: 2px 4px 5px #05293D;
+  box-shadow: 3px 4px 5px #05293D;
 
 }
 
 .collection__listHeaders {
   display: grid;
   width: 100%;
-  grid-template-columns: 2fr 1fr 2fr 1fr 3fr .5fr .5fr;
+  grid-template-columns: 3fr 1fr 1fr 1fr 3fr .5fr .5fr;
   margin: 15px 0px;
   align-items: center;
   padding: 5px 0px;
@@ -27,8 +28,7 @@
 .collection__list {
   display: grid;
   width: 100%;
-  grid-template-columns: 2fr 1fr 2fr 1fr 3fr .5fr .5fr;
-  gap: 10px;
+  grid-template-columns: 3fr 1fr 1fr 1fr 3fr .5fr .5fr;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   margin: 15px 0px;
   align-items: center;

@@ -1,7 +1,5 @@
 .dashboard__appWrapper {
   display: flex;
-  /* background-color: #F0F0F0; */
-  /* background-color: #EEEEEE; */
   height: 100%;
 }
 
@@ -22,24 +20,26 @@
   min-height: 400px;
   max-height: 450px;
   margin-top: 1rem;
-  background-color: #F8F8F9;
   justify-content: center;
-  border-radius: 20px;
-  box-shadow: 3px 3px 4px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid  rgba(0, 0, 0, 0.1);;
+  border-radius: 10px;
+  box-shadow: 3px 4px 5px #05293D;
   padding: 1rem;
   grid-template-columns: repeat(auto-fill, 16rem);
   overflow: auto;
+  background-color: #F8F8F9;
 }
 
 .collection__card {
   width: 10rem;
   height: 10rem;
-  border-radius: 8px;
-  box-shadow: 3px 3px 4px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid  rgba(0, 0, 0, 0.1);;
+  border-radius: 10px;
+  box-shadow: 3px 4px 5px #05293D;
   padding: 0.8rem;
-  background-color: #F8F8F9;
   cursor: default;
   transition: all 0.1s ease-in;
+  background-color: white;
 }
 
 .card__link {

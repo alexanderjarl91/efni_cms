@@ -62,6 +62,11 @@ nav {
   color: #F8F8F9;
 }
 
+.navigation__adminSublink {
+  margin-left: 2rem;
+
+}
+
 .navigation__sublink {
   font-style: normal;
   font-size: 18px;
@@ -83,3 +88,14 @@ nav {
   padding: 20px;
   cursor: default;
 }
+
+.navigation__dropdown > * {
+  margin-bottom: 15px;
+}
+
+.navigation__adminDropdown {
+  background-color: #063852;
+  box-shadow: 5px 5px 5px #05293D;
+  padding: 20px;
+}
+
