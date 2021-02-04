@@ -72,9 +72,9 @@ export default function Navigation({ goToCollection }) {
             {currentUser ? (
               <>
                 {currentUser.role === "admin" ? (
-                  <div className="adminNav navigation__dropdown">
+                  <div className="adminNav navigation__adminDropdown">
                     <button onClick={handleShowAdminPanel} className="navigation__link">Admin nav</button>
-                    {showAdminPanel? <div><Link className="navigation__link" to="/users">
+                    {showAdminPanel? <div className="navigation__adminSublink"><Link className="navigation__link" to="/users">
                       <p>Users</p>
                     </Link>
                     <Link className="navigation__link" to="/api-generator">

@@ -163,7 +163,9 @@ export default function Collection(props) {
                     </a>
                     ) : "No image"}
                     <p>{product.productOnSale ? "true" : "false"}</p>
-                    <p>{product.productDescription}</p>
+                    <p>{product.productDescription.length > 50 ?
+                      `${product.productDescription.substring(0, 50)} ...`
+                      : product.productDescription}</p>
                     <EditIcon className="collection__actionIcons" onClick={() => toggleEdit(index)}/>
                     <DeleteIcon className="collection__actionIcons" onClick={() => handleAlert(product._id)}/>
                     {product.editMode ? (
