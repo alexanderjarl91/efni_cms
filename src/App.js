@@ -69,6 +69,8 @@ function App() {
               useruid: userUid,
               email: email,
               name: name,
+              photoURL:
+                "https://herrmans.eu/wp-content/uploads/2019/01/765-default-avatar.png",
             };
             firebase.firestore().collection("users").doc(email).set(account);
           });

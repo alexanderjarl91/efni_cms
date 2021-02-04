@@ -21,21 +21,21 @@
   max-height: 450px;
   margin-top: 1rem;
   justify-content: center;
-  border: 1px solid  rgba(0, 0, 0, 0.1);;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  box-shadow: 3px 4px 5px #05293D;
+  box-shadow: 3px 4px 5px #05293d;
   padding: 1rem;
   grid-template-columns: repeat(auto-fill, 16rem);
   overflow: auto;
-  background-color: #F8F8F9;
+  background-color: #f8f8f9;
 }
 
 .collection__card {
   width: 10rem;
   height: 10rem;
-  border: 1px solid  rgba(0, 0, 0, 0.1);;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  box-shadow: 3px 4px 5px #05293D;
+  box-shadow: 3px 4px 5px #05293d;
   padding: 0.8rem;
   cursor: default;
   transition: all 0.1s ease-in;
@@ -53,6 +53,9 @@
 .card__title {
   font-size: 18px;
   padding-bottom: 0.5rem;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  color: #05293d;
 }
 
 .card__document {

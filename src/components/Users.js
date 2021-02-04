@@ -2,9 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import "./styles/users.css";
 import { AuthContext, DataContext } from "../context";
 import { db } from "../firebase";
-import { Button } from "@material-ui/core";
-
-const CryptoJS = require("crypto-js");
+import { Button, Avatar } from "@material-ui/core";
 
 export default function Users() {
   const { collections, userData, setUserData } = useContext(DataContext);
@@ -78,100 +76,128 @@ export default function Users() {
 
   return (
     <>
-    {currentUser && currentUser.role && currentUser.role === "admin" ? (
+      {currentUser && currentUser.role && currentUser.role === "admin" ? (
+        <div className="users__comp">
+          {/* TABLE TITLES */}
+          <div className="users__header">
+            <h4>Name</h4>
+            <h4>E-mail</h4>
+            <h4>Role</h4>
+            <h4>Access</h4>
+          </div>
 
-    
-    <div className="users__comp">
-      {/* TABLE TITLES */}
-      <div className="users__header">
-        <h4>Name</h4>
-        <h4>E-mail</h4>
-        <h4>Role</h4>
-        <h4>Access</h4>
-      </div>
-
-      {/* DISPLAY USER DATA */}
-      {users.length > 0 ? (
-        <div>
-          {users.map((user, index) => (
-            <div key={user.email}>
-              <div
-                onClick={(e) => {
-                  toggleEdit(index);
-                }}
-                className="user__data"
-                key={user.email}
-              >
-                <p>{user.name}</p>
-                <p>{user.email}</p>
-                {user.role === "admin" ? <p>{user.role}</p> : <p>Editor</p>}
-
-                {user.access ? <p>{user.access}</p> : <p>No access</p>}
-
-                {/* EDITMODE */}
-              </div>
-              {user.editUser ? (
-                <div className="editmode__container">
-                  <div className="users__editMode">
-                    <div>
-                      <h3 className="users__editModeTitle">User role</h3>
-
-                      <label htmlFor="">
-                        admin
-                        <input
-                          name="role"
-                          type="checkbox"
-                          checked={role === "admin"}
-                          onChange={(e) => {
-                            handleRole(e);
-                          }}
-                        />
-                      </label>
-                    </div>
-                    {/* FOR EACH DATABASE, RENDER ITEM */}
+          {/* DISPLAY USER DATA */}
+          {users.length > 0 ? (
+            <div>
+              
+              {users.map((user, index) => (
+                <div key={user.useruid}>
+                  <div
+                    onClick={(e) => {
+                      toggleEdit(index);
+                    }}
+                    className="user__data"
+                    key={user.email}
+                  >
                     <div
-                      style={{ backgroundColor: "yellow", maxWidth: "20vw" }}
+                      style={{ display: "flex", alignItems: "center" }}
+                      key={index}
                     >
-                      <h3 className="users__editModeTitle">Database Access:</h3>
-                      {collections.map((collection) => (
-                        <div key={collection.collection}>
-                          <label className="uppercase" htmlFor="">
-                            {collection.collection}
-                          </label>
-                          <input
-                            onChange={(e) => {
-                              handleDatabaseAccess(e);
-                            }}
-                            type="checkbox"
-                            value={collection.collection}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  <Button
+                      <Avatar
                         style={{
-                          background: "#FFFFFF",
-                          boxShadow: "0px 4px 4px rgba(0,0,0,0.25",
-                          borderRadius: "10px",
+                          margin: "1rem",
+                          width: "30px",
+                          height: "30px",
                         }}
-                        onClick={() => {
-                          updateUser(user.email, index);
-                          toggleEdit(index);
-                        }}
-                      >
-                        Update User
-                      </Button>
+                        src={user.photoURL}
+                      />
+                      <p>{user.name}</p>
+                    </div>
+          
+                    <p>{user.email}</p>
+                    {user.role === "admin" ? <p>{user.role}</p> : <p>Editor</p>}
+
+                    {user.access ? (
+                      <p style={{ textTransform: "capitalize" }}>
+                        {user.access.toString()}
+                      </p>
+                    ) : (
+                      <p>No access</p>
+                    )}
+
+                    {/* EDITMODE */}
                   </div>
+                  {user.editUser ? (
+                    <div className="editmode__container">
+                      <div className="users__editMode">
+                        <div>
+                          <h3 className="users__editModeTitle">User role</h3>
+
+                          <label htmlFor="">
+                            admin
+                            <input
+                              name="role"
+                              type="checkbox"
+                              checked={role === "admin"}
+                              onChange={(e) => {
+                                handleRole(e);
+                              }}
+                            />
+                          </label>
+                        </div>
+                        {/* FOR EACH DATABASE, RENDER ITEM */}
+                        <div
+                          style={{
+                            backgroundColor: "yellow",
+                            maxWidth: "20vw",
+                          }}
+                        >
+                          <h3 className="users__editModeTitle">
+                            Database Access:
+                          </h3>
+                          {collections.map((collection) => (
+                            <div key={collection.collection}>
+                              <label className="uppercase" htmlFor="">
+                                {collection.collection}
+                              </label>
+                              <input
+                                onChange={(e) => {
+                                  handleDatabaseAccess(e);
+                                }}
+                                type="checkbox"
+                                value={collection.collection}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                         <Button
+                         style={{
+                           background: "#FFFFFF",
+                           boxShadow: "0px 4px 4px rgba(0,0,0,0.25",
+                           borderRadius: "10px",
+                         }}
+                         onClick={() => {
+                           updateUser(user.email, index);
+                           toggleEdit(index);
+                         }}
+                       >
+                         Update User
+                       </Button>
+                      </div>
+
+                
+                    </div>
+                  ) : null}
                 </div>
-              ) : null}
+              ))}
             </div>
-          ))}
+          ) : (
+            <p>loading users..</p>
+          )}
         </div>
       ) : (
-        <p>loading users..</p>
+        <h1> 401 - NO ACCESS</h1>
       )}
-    </div>
-    ) : <h1> 401 - NO ACCESS</h1> }
     </>
   );
 }

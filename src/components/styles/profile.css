@@ -1,10 +1,10 @@
 .profile__container {
-  width: 30%;
+  width: 400px;
   padding: 2rem;
   margin-top: 2rem;
-  border: 1px solid  rgba(0, 0, 0, 0.1);;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  box-shadow: 3px 4px 5px #05293D;
+  box-shadow: 3px 4px 5px #05293d;
 }
 
 .profile__items {
@@ -37,7 +37,7 @@
   justify-content: center;
   align-items: center;
   opacity: 0;
-  animation: forms-fade-in 0.5s 0.2s forwards; 
+  animation: forms-fade-in 0.5s 0.2s forwards;
 }
 
 .profile__editForm {
@@ -49,7 +49,7 @@
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 20px 75px rgba(0, 0, 0, 0.13);
-  color: #666; 
+  color: #666;
 }
 
 .profile__editForm h4 {

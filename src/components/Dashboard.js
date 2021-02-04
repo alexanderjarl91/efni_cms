@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 //import components
 import Navigation from "./Navigation";
@@ -11,8 +11,6 @@ import Profile from "./Profile";
 import ApiGenerator from "./ApiGenerator";
 
 export default function Dashboard() {
-  console.log(window.location.pathname);
-
   const [title, setTitle] = useState("not found");
 
   useEffect(() => {

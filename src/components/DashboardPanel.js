@@ -7,7 +7,7 @@ import "./styles/dashboard.css";
 
 export default function DashboardPanel() {
   const { user } = useContext(AuthContext);
-  const { userData, collections, setCollections } = useContext(DataContext);
+  const { userData, collections } = useContext(DataContext);
   const [currUser, setCurrUser] = useState(undefined);
   const [userCollection, setUserCollection] = useState([]);
 
@@ -54,6 +54,7 @@ export default function DashboardPanel() {
       </div>
     </Link>
   ));
+
   return (
     <div>
       <h1>Welcome, {user.displayName}!</h1>

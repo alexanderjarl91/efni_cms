@@ -33,7 +33,14 @@ export default function Navigation({ goToCollection, setTitle }) {
         <div className="navbar">
           <nav>
             <div className="navbar__header">
-              <img className="navbar__logo" src={matterLogo} alt="logo" />
+              <Link
+                onClick={() => {
+                  setTitle("/dashboard");
+                }}
+                to="/"
+              >
+                <img className="navbar__logo" src={matterLogo} alt="logo" />
+              </Link>
               <span className="navbar__line"></span>
             </div>
 
@@ -57,10 +64,7 @@ export default function Navigation({ goToCollection, setTitle }) {
                 Profile
               </Link>
               <div className="navigation__dropdown">
-                <p
-                  onClick={handleShowCollections}
-                  className="navigation__link "
-                >
+                <p onClick={handleShowCollections} className="navigation__link">
                   Collections
                 </p>
 
@@ -84,12 +88,10 @@ export default function Navigation({ goToCollection, setTitle }) {
                         </div>
                       ))
                     ) : (
-                      <p>no access</p>
+                      <p style={{ color: "white" }}>No Access</p>
                     )}
                   </>
-                ) : (
-                  console.log("not showing")
-                )}
+                ) : null}
               </div>
 
               {currentUser ? (
@@ -111,7 +113,7 @@ export default function Navigation({ goToCollection, setTitle }) {
                             className="navigation__link"
                             to="/users"
                           >
-                            <p>Users</p>
+                            <p className="navigation__adminSublink">Users</p>
                           </Link>
                         </div>
                       ) : null}
