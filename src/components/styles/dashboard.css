@@ -10,10 +10,74 @@
   overflow-y: scroll;
 }
 
+.dashboard__panel__title {
+  margin: 1rem 0;
+  margin-left: 1rem;
+  font-weight: 500;
+}
+
 .dashboard__grid {
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr 1fr 1fr;
+  min-height: 400px;
+  max-height: 450px;
+  margin-top: 1rem;
+  background-color: #F8F8F9;
+  justify-content: center;
+  border-radius: 20px;
+  box-shadow: 3px 3px 4px 5px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  grid-template-columns: repeat(auto-fill, 16rem);
+  overflow: auto;
+}
+
+.collection__card {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 8px;
+  box-shadow: 3px 3px 4px 5px rgba(0, 0, 0, 0.1);
+  padding: 0.8rem;
+  background-color: #F8F8F9;
+  cursor: default;
+  transition: all 0.1s ease-in;
+}
+
+.card__link {
+  color: #333333;
+}
+
+.collection__card:hover {
+  transform: scale(1.04);
+}
+
+.card__title {
+  font-size: 18px;
+  padding-bottom: 0.5rem;
+}
+
+.card__document {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.card__user {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.document__icon {
+  width: 2rem !important;
+  height: 2rem !important;
+  margin-right: 0.4rem;
+}
+
+.user__icon {
+  width: 2rem !important;
+  height: 2rem !important;
+  margin-right: 0.4rem;
 }
 
 .dashboard__title {

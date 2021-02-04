@@ -6,6 +6,8 @@ import { AuthContext, DataContext } from "../context";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { confirmAlert } from 'react-confirm-alert'; 
+import firebase from "firebase/app";
+import "firebase/auth";
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import "./styles/collection.css";
 
@@ -16,7 +18,7 @@ export default function Collection(props) {
   const [currEndPoint, setCurrEndPoint] = useState("");
   const [currCollection, setCurrCollection] = useState([]);
   const [productToEdit, setProductToEdit] = useState([]);
-  const [allowAccess, setAllowAccess] = useState(false);
+  const [allowAccess, setAllowAccess] = useState(true);
 
   useEffect(() => {
      console.log('collection component rerenderd')
@@ -28,7 +30,7 @@ export default function Collection(props) {
     // If the user has the requeststring in his access array we allow him access
 
     if (foundUser && foundUser.access.includes(collectionQs.name)) {
-      // Get the collection from the url
+      //Get the collection from the url
       setCurrEndPoint(collectionQs.name);
       setAllowAccess(true);
 
@@ -55,19 +57,39 @@ export default function Collection(props) {
 
 
   // Handle when delete button is clicked
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
+    const idToken = await firebase.auth().currentUser.getIdToken(/* forceRefresh */ true);
+
+    try {
+      const r = await fetch(`https://efni-api.herokuapp.com/${currEndPoint}/${id}`, {
+        method: "DELETE",
+        headers: {'Content-Type': 'application/json', 'Authorization': idToken}
+      });
+      const data = await r.json();
+      if(data.msg) {
+        return;
+      } else {
+        setCurrCollection(currCollection.filter((product) => id !== product._id));
+      }
+    } catch(err) {
+      console.log(err);
+    }
     // Fetch from the api with DELETE method to delete from database
-    fetch(`https://efni-api.herokuapp.com/${currEndPoint}/${id}`, {
-      method: "DELETE",
-    })
-      .then((r) => r.json())
-      // Filtering and finding the object to remove from id
-      .then(() =>
-        setCurrCollection(
-          currCollection.filter((product) => id !== product._id)
-        )
-      )
-      .catch((error) => console.error(error));
+    // fetch(`http://localhost:5000/${currEndPoint}/${id}`, {
+    // })
+    //   .then((r) => {
+    //     const data = r.json()
+    //     console.log('data is: ', data);
+        
+    //   })
+    //   // Filtering and finding the object to remove from id
+    //     console.log('R is: ', data);
+        // setCurrCollection(
+        // currCollection.filter((product) => id !== product._id)
+      
+        
+    //   )
+    //   .catch((error) => console.error(error));
   };
   
 

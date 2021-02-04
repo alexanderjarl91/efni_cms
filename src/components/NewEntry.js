@@ -30,18 +30,23 @@ export default function NewEntry ({toggleAddMode, setCurrCollection, currEndPoin
             headers: {'Content-Type': 'application/json', 'Authorization': idToken}})
             const data = await r.json();
             // Setting the data to state and using concat to add to it
-            setCurrCollection(products => products.concat(data))
+            console.log('data before set: ', data);
+            if(data.msg) {
+                return;
+            } else {
+                setCurrCollection(products => products.concat(data));
+            }
         } catch (error) { 
-            console.log(error)
+            console.log("addentrylog: ", error)
         }
-      }
+    }
 
     // Handle submit of the form
     const handleSubmit = (e) => {
-    e.preventDefault()
-    addEntryToDb()
-    toggleAddMode()
-  }
+        e.preventDefault()
+        addEntryToDb()
+        toggleAddMode()
+    }
 
     // Handle when form changes
     const handleChange = (e) => {
