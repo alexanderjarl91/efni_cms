@@ -164,7 +164,7 @@ export default function Collection(props) {
                 <h4></h4>
               </div>
 
-              {currCollection.slice(0).reverse().map((product, index) => (
+              {currCollection.map((product, index) => (
                 <div className="collection__list" key={product._id}>
                   <p>{product.productName}</p>
                   <p>{product.productPrice}</p>
