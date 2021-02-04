@@ -81,4 +81,5 @@ nav {
   background-color: #063852;
   box-shadow: 5px 5px 5px #05293D;
   padding: 20px;
+  cursor: default;
 }

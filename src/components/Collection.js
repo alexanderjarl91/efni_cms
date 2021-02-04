@@ -13,7 +13,7 @@ import "./styles/collection.css";
 
 export default function Collection(props) {
   const { user } = useContext(AuthContext);
-  const { userData } = useContext(DataContext);
+  const { userData, refreshCollections, setRefreshCollections } = useContext(DataContext);
   const [addMode, setAddMode] = useState(false);
   const [currEndPoint, setCurrEndPoint] = useState("");
   const [currCollection, setCurrCollection] = useState([]);
@@ -69,6 +69,7 @@ export default function Collection(props) {
       if(data.msg) {
         return;
       } else {
+        setRefreshCollections(!refreshCollections);
         setCurrCollection(currCollection.filter((product) => id !== product._id));
       }
     } catch(err) {

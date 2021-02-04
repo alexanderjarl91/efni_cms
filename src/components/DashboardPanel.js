@@ -12,6 +12,10 @@ export default function DashboardPanel() {
   const [userCollection, setUserCollection] = useState([]);
 
   useEffect(() => {
+    console.log('Dashboardpanel rendering');
+  }, [])
+
+  useEffect(() => {
     const foundUser = userData.find((x) => x.email === user.email);
 
     // console.log(collections);
@@ -22,6 +26,7 @@ export default function DashboardPanel() {
 
   useEffect(() => {
     if (currUser !== undefined) {
+      console.log('Filtering')
       // Get all the collection object that the user should have access to
       const filtered = collections.filter((item) =>
         currUser.access.includes(item.collection)

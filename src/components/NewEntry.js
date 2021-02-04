@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import './styles/newEntry.css';
+import { DataContext } from "../context";
 import firebase from "firebase/app";
 import "firebase/auth";
 
 
 export default function NewEntry ({toggleAddMode, setCurrCollection, currEndPoint}) {
+    const { refreshCollections, setRefreshCollections } = useContext(DataContext);
 
     const [newEntry, setNewEntry] = useState({
         productName: '',
@@ -34,10 +36,11 @@ export default function NewEntry ({toggleAddMode, setCurrCollection, currEndPoin
             if(data.msg) {
                 return;
             } else {
+                setRefreshCollections(!refreshCollections);
                 setCurrCollection(products => products.concat(data));
             }
         } catch (error) { 
-            console.log("addentrylog: ", error)
+            console.log("Add entry error: ", error)
         }
     }
 

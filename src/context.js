@@ -26,6 +26,7 @@ export const DataProvider = ({ children }) => {
   const [userData, setUserData] = useState([]);
   const [products, setProducts] = useState([]);
   const [collections, setCollections] = useState([]);
+  const [refreshCollections, setRefreshCollections] = useState(false);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -67,7 +68,7 @@ export const DataProvider = ({ children }) => {
       }
     };
     getCollections();
-  }, []);
+  }, [refreshCollections]);
 
   return (
     <DataContext.Provider
@@ -75,9 +76,11 @@ export const DataProvider = ({ children }) => {
         userData,
         products,
         collections,
+        refreshCollections,
         setProducts,
         setCollections,
         setUserData,
+        setRefreshCollections,
       }}
     >
       {children}
