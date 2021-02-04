@@ -1,6 +1,8 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import "./styles/login.css";
+import matterLogoDark from "../images/logo_dark.svg";
 
 //getting props
 export default function Login({
@@ -18,29 +20,19 @@ export default function Login({
   passwordError,
 }) {
   //styling
-  const container = {
-    display: "flex",
-    flexDirection: "column",
-    maxWidth: "50%",
-    margin: "2rem auto",
-    backgroundColor: "white",
-    padding: "30px 50px",
-    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-    borderRadius: "10px",
-    textAlign: "center",
-  };
 
   return (
-    <div style={container}>
+    <div className="loginContainer">
+      <img src={matterLogoDark} />
       {hasAccount ? (
         <div>
           {/* <h1>Log in</h1> */}
-          <p>Log in using your e-mail and password</p>
+          <p className="loginText">Log in</p>
         </div>
       ) : (
         <div>
           {/* <h1>Sign up</h1> */}
-          <p>Sign up with your email and choose your password</p>
+          <p className="loginText">Sign up</p>
           <TextField
             id="outlined-basic"
             autoFocus
@@ -83,10 +75,10 @@ export default function Login({
             <Button type="submit" color="primary" onClick={handleLogin}>
               Log in
             </Button>
-            <p>
+            <p className="footerText">
               Don't have an account?{" "}
               <Button onClick={() => setHasAccount(!hasAccount)}>
-                Click here
+                Sign up
               </Button>
             </p>
           </div>
