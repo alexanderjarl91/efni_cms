@@ -67,6 +67,7 @@ nav {
   font-size: 18px;
   line-height: 21px;
   color: #f8f8f9;
+  margin-bottom: 20px;
 }
 
 .navigation__link:hover {
@@ -74,9 +75,8 @@ nav {
 }
 
 .navigation__adminSublink {
-  margin-left: 2rem;
   font-size: 16px;
-  margin-left: 1rem;
+  margin-left: 2rem;
 }
 
 .navigation__sublink {

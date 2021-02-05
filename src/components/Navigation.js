@@ -105,7 +105,7 @@ export default function Navigation({ goToCollection, setTitle }) {
                         Admin nav
                       </button>
                       {showAdminPanel ? (
-                        <div className="navigation__adminSublink">
+                
                           <Link
                             onClick={() => {
                               setTitle("/users");
@@ -115,7 +115,7 @@ export default function Navigation({ goToCollection, setTitle }) {
                           >
                             <p className="navigation__adminSublink">Users</p>
                           </Link>
-                        </div>
+                      
                       ) : null}
                     </div>
                   ) : null}
