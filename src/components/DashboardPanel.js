@@ -5,7 +5,7 @@ import DocumentIcon from "@material-ui/icons/InsertDriveFile";
 import PersonIcon from "@material-ui/icons/Person";
 import "./styles/dashboard.css";
 
-export default function DashboardPanel() {
+export default function DashboardPanel({setTitle}) {
   const { user } = useContext(AuthContext);
   const { userData, collections } = useContext(DataContext);
   const [currUser, setCurrUser] = useState(undefined);
@@ -40,6 +40,7 @@ export default function DashboardPanel() {
     <Link
       key={index}
       className="card__link"
+      onClick={() => setTitle('/'+item.collection)}
       to={{ pathname: "/collection", search: `?name=${item.collection}` }}
       
     >

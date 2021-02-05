@@ -25,7 +25,7 @@ export default function Dashboard() {
         <div className="dashboard__container">
           <h1 className="dashboard__title">{title}</h1>
           <Switch>
-            <Route path="/" exact component={DashboardPanel} />
+            <Route path="/" exact component={() => <DashboardPanel setTitle={setTitle} />} />
             <Route path="/users" exact component={Users} />
             <Route path="/collection" exact component={Collection} />
             <Route path="/profile" exact component={Profile} />
