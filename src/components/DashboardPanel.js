@@ -59,7 +59,7 @@ export default function DashboardPanel({setTitle}) {
 
   return (
     <div>
-      <h1>Welcome, {user.displayName}!</h1>
+      <h1 className="dashboard__welcomeHeading">Welcome, {user.displayName}!</h1>
       <div>
         <h4 className="dashboard__panel__title">Your collections:</h4>
 

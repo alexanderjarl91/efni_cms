@@ -8,6 +8,10 @@
   overflow-y: scroll;
 }
 
+.dashboard__welcomeHeading {
+  margin-left: 1rem;
+}
+
 .dashboard__panel__title {
   margin: 1rem 0;
   margin-left: 1rem;

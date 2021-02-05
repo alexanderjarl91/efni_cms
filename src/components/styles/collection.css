@@ -24,7 +24,7 @@
   align-items: center;
   padding: 5px 0px;
   border-bottom: 2px solid #063852;
-  gap: 10px;
+  gap: 20px;
 }
 
 .collection__list {
@@ -35,7 +35,7 @@
   margin: 15px 0px;
   align-items: center;
   padding: 5px 0px;
-  gap: 10px;
+  gap: 20px;
 }
 
 .collection__imageLink {
