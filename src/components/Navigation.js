@@ -33,7 +33,7 @@ export default function Navigation({ goToCollection, setTitle }) {
         <div className="navbar">
           <nav>
             <div className="navbar__header">
-              <Link
+              <Link className="navbar__logoLink"
                 onClick={() => {
                   setTitle("/dashboard");
                 }}

@@ -80,10 +80,12 @@ export default function Users() {
         <div className="users__comp">
           {/* TABLE TITLES */}
           <div className="users__header">
+          <div className="users__headerElements">
             <h4>Name</h4>
             <h4>E-mail</h4>
             <h4>Role</h4>
             <h4>Access</h4>
+          </div>
           </div>
 
           {/* DISPLAY USER DATA */}
@@ -115,7 +117,7 @@ export default function Users() {
                     </div>
           
                     <p>{user.email}</p>
-                    {user.role === "admin" ? <p>{user.role}</p> : <p>Editor</p>}
+                    {user.role === "admin" ? <p>{user.role} </p> : <p>Editor</p>}
 
                     {user.access ? (
                       <p style={{ textTransform: "capitalize" }}>
@@ -131,10 +133,11 @@ export default function Users() {
                     <div className="editmode__container">
                       <div className="users__editMode">
                         <div>
-                          <h3 className="users__editModeTitle">User role</h3>
+                          <h3 className="users__editModeTitle">User role:</h3>
 
                           <label htmlFor="">
                             admin
+                          </label>
                             <input
                               name="role"
                               type="checkbox"
@@ -143,12 +146,10 @@ export default function Users() {
                                 handleRole(e);
                               }}
                             />
-                          </label>
                         </div>
                         {/* FOR EACH DATABASE, RENDER ITEM */}
                         <div
                           style={{
-                            backgroundColor: "yellow",
                             maxWidth: "20vw",
                           }}
                         >
@@ -175,6 +176,7 @@ export default function Users() {
                            background: "#FFFFFF",
                            boxShadow: "0px 4px 4px rgba(0,0,0,0.25",
                            borderRadius: "10px",
+                           padding: "0px 20px",
                          }}
                          onClick={() => {
                            updateUser(user.email, index);

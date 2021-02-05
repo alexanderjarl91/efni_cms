@@ -41,6 +41,7 @@ export default function DashboardPanel() {
       key={index}
       className="card__link"
       to={{ pathname: "/collection", search: `?name=${item.collection}` }}
+      
     >
       <div className="collection__card">
         <div className="card__title">{item.collection}</div>
