@@ -6,7 +6,6 @@ import "firebase/auth";
 export default function EditEntry ({currCollection, setCurrCollection, currEndPoint, productToEdit, id}) {
 
     const [updatedEntry, setUpdatedEntry] = useState({
-        // _id: productToEdit.product._id,
         productName: productToEdit.productName, 
         productPrice: productToEdit.productPrice,
         productImg: productToEdit.productImg,
@@ -57,10 +56,7 @@ export default function EditEntry ({currCollection, setCurrCollection, currEndPo
     const handleChange = (e) => {
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
         setUpdatedEntry({...updatedEntry, [e.target.name]: value})
-        console.log(value);
     }
-
-    // console.log(updatedEntry)
 
     const handleCancel = () => {
         const copyOfCurrCollection = [...currCollection]

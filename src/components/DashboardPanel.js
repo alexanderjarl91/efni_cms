@@ -17,8 +17,6 @@ export default function DashboardPanel({setTitle}) {
 
   useEffect(() => {
     const foundUser = userData.find((x) => x.email === user.email);
-
-    // console.log(collections);
     if (foundUser !== undefined) {
       setCurrUser(foundUser);
     }
@@ -65,9 +63,6 @@ export default function DashboardPanel({setTitle}) {
 
         {/* collection titles */}
         <div className="dashboard__grid">
-          {/* <h4>name</h4>
-          <h4># of entries</h4>
-          <h4># of editors</h4> */}
           {collectionList}
         </div>
       </div>

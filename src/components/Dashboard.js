@@ -8,7 +8,6 @@ import DashboardPanel from "./DashboardPanel";
 import Users from "./Users";
 import Collection from "./Collection";
 import Profile from "./Profile";
-import ApiGenerator from "./ApiGenerator";
 
 export default function Dashboard() {
   const [title, setTitle] = useState("not found");
@@ -29,7 +28,6 @@ export default function Dashboard() {
             <Route path="/users" exact component={Users} />
             <Route path="/collection" exact component={Collection} />
             <Route path="/profile" exact component={Profile} />
-            <Route path="/api-generator" exact component={ApiGenerator} />
           </Switch>
         </div>
       </div>

@@ -86,21 +86,7 @@ export default function Collection(props) {
     } catch (err) {
       console.log(err);
     }
-    // Fetch from the api with DELETE method to delete from database
-    // fetch(`http://localhost:5000/${currEndPoint}/${id}`, {
-    // })
-    //   .then((r) => {
-    //     const data = r.json()
-    //     console.log('data is: ', data);
 
-    //   })
-    //   // Filtering and finding the object to remove from id
-    //     console.log('R is: ', data);
-    // setCurrCollection(
-    // currCollection.filter((product) => id !== product._id)
-
-    //   )
-    //   .catch((error) => console.error(error));
   };
 
   const toggleEdit = (index) => {
